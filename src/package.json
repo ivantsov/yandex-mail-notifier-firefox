@@ -1,0 +1,49 @@
+{
+    "name": "yandex-mail-notifier",
+    "title": "Yandex.mail notifier",
+    "id": "jid1-gIFmYGrLt0ODkQ",
+    "description": "Уведомление о новых письмах в Яндекс.почта",
+    "author": "Alexander Ivantsov (shpuntik37@ya.ru)",
+    "license": "MPL 2.0",
+    "version": "2.0",
+    "dependencies": [
+        "addon-sdk"
+    ],
+    "preferences": [{
+        "name": "checkInterval",
+        "type": "menulist",
+        "title": "Интервал обновления",
+        "value": 300000,
+        "options": [{
+            "value": "60000",
+            "label": "1 мин"
+        }, {
+            "value": "300000",
+            "label": "5 мин"
+        }, {
+            "value": "900000",
+            "label": "15 мин"
+        }, {
+            "value": "1800000",
+            "label": "30 мин"
+        }]
+    }, {
+        "name": "sound",
+        "type": "bool",
+        "title": "Звуковое оповещение",
+        "value": false
+    }, {
+        "name": "notifyType",
+        "type": "menulist",
+        "title": "Тип оповещения",
+        "description": "оповещать о новых письмах с момента последней проверки или о непрочитанных вообще",
+        "value": "unread",
+        "options": [{
+            "value": "unread",
+            "label": "непрочитанные письма"
+        }, {
+            "value": "new",
+            "label": "новые письма"
+        }]
+    }]
+}
