@@ -5,11 +5,11 @@ This is extension for Firefox, which check your Yandex.mail and notify you. *Ext
 
 Addon page: [https://addons.mozilla.org/ru/firefox/addon/yandex-mail-notifier/](https://addons.mozilla.org/ru/firefox/addon/yandex-mail-notifier/)
 
-**NOTE:** need addon-sdk v1.16
+**NOTE:** need addon-sdk v1.17
 
 ###Русский
 Это расширение проверяет вашу Яндекс.почту и уведомляет вас о новых сообщениях. *Для работы расширения необходимо, чтобы вы были авторизованы в Яндекс.*
 
 Страница расширения: [https://addons.mozilla.org/ru/firefox/addon/yandex-mail-notifier/](https://addons.mozilla.org/ru/firefox/addon/yandex-mail-notifier/)
 
-**ВАЖНО:** расширение использует addon-sdk v1.16
+**ВАЖНО:** расширение использует addon-sdk v1.17
