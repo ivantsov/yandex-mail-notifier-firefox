@@ -3,7 +3,7 @@ var data = require('sdk/self').data;
 var tabs = require('sdk/tabs');
 var prefs = require('sdk/simple-prefs');
 var timers = require('sdk/timers');
-var badgedWidget = require('./badged-widget');
+var BadgedWidget = require('./badged-widget').BadgedWidget;
 var request = require('./request');
 var notifications = require('./notifications');
 var parser = data.url('parser.js');
@@ -45,12 +45,6 @@ function showNotification(msgCount) {
     });
 }
 
-function setBadgeText(value) {
-    widget.badge = {
-        text: value
-    };
-}
-
 function checkMail() {
     request.get(URL_FOR_PARSE, parser, function (unreadMsgCount) {
         var msgCountCurrent = unreadMsgCount;
@@ -60,7 +54,7 @@ function checkMail() {
         }
         msgCountBefore = unreadMsgCount;
 
-        setBadgeText(msgCountCurrent >= 0 ? msgCountCurrent : 0);
+        widget.updateBadge(msgCountCurrent >= 0 ? msgCountCurrent : 0);
         if (msgCountCurrent > 0) {
             showNotification(msgCountCurrent);
 
@@ -76,10 +70,11 @@ function setCheckInterval() {
     timer = timers.setInterval(checkMail, prefs.prefs.checkInterval);
 }
 
-var widget = badgedWidget.BadgedWidget({
+var widget = new BadgedWidget({
     id: ID,
     label: 'Перейти на Яндекс.почта',
-    contentURL: data.url(ICON_FILENAME),
+    width: 30,
+    imageURL: data.url(ICON_FILENAME),
     onClick: function () {
         tabs.open(URL_FOR_OPEN)
     }
