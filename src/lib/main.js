@@ -73,7 +73,7 @@ function setCheckInterval() {
 var widget = new BadgedWidget({
     id: ID,
     label: 'Перейти на Яндекс.почта',
-    width: 30,
+    width: 23,
     imageURL: data.url(ICON_FILENAME),
     onClick: function () {
         tabs.open(URL_FOR_OPEN)
