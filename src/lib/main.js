@@ -1,52 +1,62 @@
-var {Cc, Ci} = require('chrome');
-var data = require('sdk/self').data;
-var tabs = require('sdk/tabs');
-var prefs = require('sdk/simple-prefs');
-var timers = require('sdk/timers');
-var BadgedWidget = require('./badged-widget').BadgedWidget;
-var request = require('./request');
-var notifications = require('./notifications');
-var parser = data.url('parser.js');
+var {Cc, Ci} = require('chrome'),
+    data = require('sdk/self').data,
+    tabs = require('sdk/tabs'),
+    prefs = require('sdk/simple-prefs'),
+    timers = require('sdk/timers'),
+    userstyles = require('./userstyles'),
+    toolbarButton = require('./toolbar-button').ToolbarButton,
+    config = require('./config'),
+    request = require('./request'),
+    notifications = require('./notifications'),
+    parser = data.url('parser.js');
 
-var ID = 'yandex-mail-link',
-    URL_FOR_PARSE = 'https://mail.yandex.ru/lite/inbox',
-    URL_FOR_OPEN = 'https://mail.yandex.ru/',
-    ICON_FILENAME = 'icon-16.png';
-
-var sound = Cc["@mozilla.org/sound;1"].createInstance(Ci.nsISound),
-    ioSvc = Cc["@mozilla.org/network/io-service;1"].getService(Ci.nsIIOService),
-    soundFile = ioSvc.newURI(data.url("notification.wav"), null, null);
+var sound = Cc['@mozilla.org/sound;1'].createInstance(Ci.nsISound),
+    ioSvc = Cc['@mozilla.org/network/io-service;1'].getService(Ci.nsIIOService),
+    soundFile = ioSvc.newURI(data.url('notification.wav'), null, null);
 
 var msgCountBefore = 0,
-    timer;
+    msgEndinds = {
+        newWord: [' новое ', ' новых ', ' новых '],
+        msgWord: ['сообщение!', 'сообщения!', 'сообщений!']
+    },
+    yaButton, timer;
 
-function formatEndByCount(count) {
-    var formattedString;
+function formatEndingByCount(count, endings) {
+    var endingIndex;
 
-    if (count === 1) {
-        formattedString = ' новое сообщение!';
+    count = count % 100;
+
+    if (count >= 11 && count <= 19) {
+        endingIndex = 2;
     }
-    else if (count >= 2 && count <= 4) {
-        formattedString = ' новых сообщения!';
-    }
-    else if (count >= 5) {
-        formattedString = ' новых сообщений!';
+    else {
+        count = count % 10;
+
+        if (count === 1) {
+            endingIndex = 0;
+        }
+        else if (count >= 2 && count <= 4) {
+            endingIndex = 1;
+        }
+        else {
+            endingIndex = 2;
+        }
     }
 
-    return formattedString;
+    return endings[endingIndex];
 }
 
 function showNotification(msgCount) {
     notifications.notify({
         title: 'Новое сообщение',
-        text: 'У вас ' + msgCount + formatEndByCount(msgCount)
+        text: 'У вас ' + msgCount + formatEndingByCount(msgCount, msgEndinds.newWord) + formatEndingByCount(msgCount, msgEndinds.msgWord)
     }, function (data) {
-        tabs.open(URL_FOR_OPEN);
+        tabs.open(config.urlForOpen);
     });
 }
 
 function checkMail() {
-    request.get(URL_FOR_PARSE, parser, function (unreadMsgCount) {
+    request.get(config.urlForParse, parser, function (unreadMsgCount) {
         var msgCountCurrent = unreadMsgCount;
 
         if (prefs.prefs.notifyType === 'new') {
@@ -54,7 +64,7 @@ function checkMail() {
         }
         msgCountBefore = unreadMsgCount;
 
-        widget.updateBadge(msgCountCurrent >= 0 ? msgCountCurrent : 0);
+        yaButton.badge = msgCountCurrent;
         if (msgCountCurrent > 0) {
             showNotification(msgCountCurrent);
 
@@ -70,18 +80,20 @@ function setCheckInterval() {
     timer = timers.setInterval(checkMail, prefs.prefs.checkInterval);
 }
 
-var widget = new BadgedWidget({
-    id: ID,
-    label: 'Перейти на Яндекс.почта',
-    width: 23,
-    imageURL: data.url(ICON_FILENAME),
-    onClick: function () {
-        tabs.open(URL_FOR_OPEN)
-    }
-});
-
 prefs.on('checkInterval', function () {
     setCheckInterval();
 });
 
-setCheckInterval();
+(function () {
+    userstyles.load(data.url(config.cssFile));
+
+    yaButton = toolbarButton({
+        id: config.id,
+        tooltiptext: config.label,
+        onClick: function () {
+            tabs.open(config.urlForOpen)
+        }
+    });
+
+    setCheckInterval();
+})();

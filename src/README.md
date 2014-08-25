@@ -1,1 +1,0 @@
-This extension use Firefox addon-sdk **v1.16**
