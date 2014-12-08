@@ -1,11 +1,11 @@
 {
     "name": "yandex-mail-notifier",
-    "title": "Yandex.mail notifier",
+    "title": "Yandex.Mail notifier",
     "id": "jid0-vsitoD18LSTi4VQGGLCVmIoJSsU",
-    "description": "Уведомление о новых письмах в Яндекс.почта",
-    "author": "Alexander Ivantsov (shpuntik37@ya.ru)",
+    "description": "Уведомление о новых письмах в Яндекс.Почта",
+    "author": "Alexander Ivantsov (alexivantsov@ya.ru)",
     "license": "MPL 2.0",
-    "version": "2.1",
+    "version": "2.1.1",
     "dependencies": [
         "addon-sdk"
     ],

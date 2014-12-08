@@ -62,15 +62,20 @@ function checkMail() {
         if (prefs.prefs.notifyType === 'new') {
             msgCountCurrent = unreadMsgCount - msgCountBefore;
         }
+
         msgCountBefore = unreadMsgCount;
 
-        yaButton.badge = msgCountCurrent;
         if (msgCountCurrent > 0) {
+            yaButton.badge = msgCountCurrent;
+
             showNotification(msgCountCurrent);
 
             if (prefs.prefs.sound) {
                 sound.play(soundFile);
             }
+        }
+        else {
+            yaButton.badge = 0;
         }
     });
 }
