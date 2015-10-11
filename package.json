@@ -1,0 +1,69 @@
+{
+    "title": "Yandex.Mail notifier",
+    "name": "yandex-mail-notifier",
+    "version": "3.0.0",
+    "description": "Notifier for Yandex.Mail",
+    "main": "index.js",
+    "author": {
+        "name": "Alexander Ivantsov",
+        "email": "alexivantsov@ya.ru",
+        "url": "http://aivantsov.com"
+    },
+    "engines": {
+        "firefox": ">=38.0a1",
+        "fennec": ">=38.0a1"
+    },
+    "license": "MIT",
+    "preferences": [{
+        "name": "checkInterval",
+        "type": "menulist",
+        "title": "Check for new emails every",
+        "value": 20000,
+        "options": [{
+            "value": 60000,
+            "label": "1 min"
+        }, {
+            "value": 300000,
+            "label": "5 min"
+        }, {
+            "value": 900000,
+            "label": "15 min"
+        }, {
+            "value": 1800000,
+            "label": "30 min"
+        }]
+    }, {
+        "name": "messageNotification",
+        "type": "bool",
+        "title": "Show desktop notification for new emails",
+        "value": true
+    }, {
+        "name": "messageSound",
+        "type": "bool",
+        "title": "Play sound notification for new emails",
+        "value": false
+    }, {
+        "name": "notAuthNotification",
+        "type": "bool",
+        "title": "Show desktop notification if you're not logged in",
+        "value": true
+    }, {
+        "name": "notAuthSound",
+        "type": "bool",
+        "title": "Play sound notification if you're not logged in",
+        "value": false
+    }, {
+        "name": "notifyType",
+        "type": "menulist",
+        "title": "Notification type",
+        "description": "notify about new emails since the last check or about unread emails at all",
+        "value": "unread",
+        "options": [{
+            "value": "unread",
+            "label": "unread emails"
+        }, {
+            "value": "new",
+            "label": "new emails"
+        }]
+    }]
+}
