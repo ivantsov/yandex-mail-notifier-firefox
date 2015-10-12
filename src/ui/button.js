@@ -1,7 +1,9 @@
 var _ = require('sdk/l10n').get;
 var {ActionButton} = require('sdk/ui/button/action');
-var {id, label, icon} = require('../config');
+var {id, icon} = require('../config');
 var {openTab} = require('./tab');
+
+// TODO: use ES6 class when it will be released
 
 var button;
 
