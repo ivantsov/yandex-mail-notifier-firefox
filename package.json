@@ -69,23 +69,6 @@
       "type": "bool",
       "title": "Play sound notification if you're not logged in",
       "value": false
-    },
-    {
-      "name": "notifyType",
-      "type": "menulist",
-      "title": "Notification type",
-      "description": "notify about new emails since the last check or about unread emails at all",
-      "value": "unread",
-      "options": [
-        {
-          "value": "unread",
-          "label": "unread emails"
-        },
-        {
-          "value": "new",
-          "label": "new emails"
-        }
-      ]
     }
   ],
   "scripts": {
