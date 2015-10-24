@@ -1,5 +1,3 @@
 var audio = new Audio('./notification.wav');
 
-self.port.on('playSound', () => {
-    audio.play();
-});
+self.port.on('playSound', audio.play);
