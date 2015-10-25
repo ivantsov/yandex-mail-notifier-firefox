@@ -13,7 +13,7 @@ module.exports = {
     SOCKET: {
         CREDENTIALS_URL: `${DOMAIN}/neo2/handlers/xiva_sub.jsx`,
         URL: 'wss://xiva-daria.mail.yandex.net/events/websocket/',
-        RECONNECT_INTERVAL: 30 * 60 * 1000 //30 min
+        RECONNECT_INTERVAL: 29 * 60 * 1000 // 29 min
     },
     COOKIE: {
         HOST: '.yandex.ru',
