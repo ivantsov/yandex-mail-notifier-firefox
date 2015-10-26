@@ -1,31 +1,26 @@
-const {ignoredFolders} = require('../config');
-import api from './api';
-import {
-    LOAD_MESSAGES,
-    LOAD_MESSAGES_SUCCESS,
-    LOAD_MESSAGES_ERROR
-} from './constants';
+const api = require('./api');
+const {
+    LOAD_DATA,
+    LOAD_DATA_SUCCESS,
+    LOAD_DATA_ERROR
+} = require('./constants');
 
-function getFilteredMessage({messages, folders}) {
-    return messages.filter(({fid}) => {
-        const folder = folders.find(({id}) => id === fid);
-
-        return (!folder || ignoredFolders.indexOf(folder.symbol) < 0);
-    });
-}
-
-export function loadMessages() {
+function loadData() {
     return dispatch => {
-        dispatch({type: LOAD_MESSAGES});
+        dispatch({type: LOAD_DATA});
 
-        return api.loadMessages()
-            .then(data => {
-                const messages = getFilteredMessage(data);
-
+        return api.loadData()
+            .then(data =>
                 dispatch({
-                    type: LOAD_MESSAGES_SUCCESS,
-                    messages
+                    type: LOAD_DATA_SUCCESS,
+                    ...data
                 })
-            });
+            )
+            .catch(err => console.error(err.stack));
     };
 }
+
+
+module.exports = {
+    loadData
+};
