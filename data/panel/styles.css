@@ -14,10 +14,6 @@ a {
     text-decoration: none;
 }
 
-.l10n {
-    display: none;
-}
-
 .container {
     position: fixed;
     top: 0;
