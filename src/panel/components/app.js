@@ -1,38 +1,47 @@
 import React, {PropTypes} from 'react';
-import {connect} from 'react-redux';
-import {loadMessages} from '../actions';
-import Spinner from './spinner';
-import Header from './header';
-import List from './list';
+const {connect} = require('react-redux');
+const {loadData} = require('../actions');
+const Spinner = require('./spinner');
+const Header = require('./header');
+const List = require('./list');
 
 const App = React.createClass({
     propTypes: {
         dispatch: PropTypes.func.isRequired,
+        user: PropTypes.string.isRequired,
+        loading: PropTypes.bool.isRequired,
         messages: PropTypes.arrayOf(PropTypes.object).isRequired
     },
-    componentDidMount() {
-        this.props.dispatch(loadMessages());
+    componentWillMount() {
+        this.props.dispatch(loadData());
     },
-	componentWillReceiveProps(newProps) {
-		if (newProps.date !== this.props.date) {
-			this.props.dispatch(loadMessages());
-		}
-	},
+    //componentWillReceiveProps(newProps) {// Might be use date, and in mapStateToProps loading set to true
+    //    console.log('WILL RECEIVE PROPS');
+    //    if (newProps.date !== this.props.date) {
+    //        this.props.dispatch(loadMessages());
+    //    }
+    //},
     render() {
-        const {loading, messages} = this.props;
+        const {
+            loading,
+            user,
+            unreadCount,
+            messages
+        } = this.props;
+
+        console.log('RENDER LOADING', loading);
 
         return loading ? <Spinner/> : (
             <div className="container">
-                <Header/>
+                <Header user={user} unreadCount={unreadCount}/>
                 <List items={messages}/>
             </div>
         );
     }
 });
 
-//TODO: maybe use reselect (https://github.com/faassen/reselect) instead
 function mapStateToProps(state) {
     return state;
 }
 
-export default connect(mapStateToProps)(App);
+module.exports = connect(mapStateToProps)(App);
