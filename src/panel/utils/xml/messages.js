@@ -1,5 +1,8 @@
-const xml = require('./parser');
 const {IGNORED_FOLDERS} = require('../../../config');
+
+function getText(element, selector) {
+    return element.querySelector(selector).textContent;
+}
 
 function getFilteredMessage(messages, folders) {
     return messages.filter(({fid}) => {
@@ -10,18 +13,19 @@ function getFilteredMessage(messages, folders) {
 }
 
 function parseFolders(folders) {
-    return [...xml.selectAll('folder', folders)].map(folder => {
+    return [...folders].map(folder => {
         return {
-            id: xml.getText(folder, 'fid'),
-            symbol: xml.getText(folder, 'symbol'),
-            name: xml.getText(folder, 'name').split('|').pop()
+            id: getText(folder, 'fid'),
+            symbol: getText(folder, 'symbol'),
+            name: getText(folder, 'name').split('|').pop()
         };
     });
 }
 
 function parseMessages(messages) {
-    return [...xml.selectAll('message', messages)].map(message => {
-        let subject = xml.getText(xml.select('subject', message), 'text');
+    return [...messages].map(message => {
+        const from = message.querySelector('from');
+        let subject = getText(message.querySelector('subject'), 'text');
 
         if (subject === 'No subject') {
             subject = '';
@@ -29,35 +33,35 @@ function parseMessages(messages) {
 
         return {
             subject,
-            id: xml.getAttr(message, 'mid'),
-            from: xml.getText(xml.select('from', message), 'name') || xml.getText(xml.select('from', message), 'email'),
-            firstline: xml.getText(message, 'firstline'),
-            date: new Date(xml.getAttr(message, 'recv_date')),
-            attach: parseInt(xml.getAttr(message, 'att_count'), 10),
-            fid: xml.getAttr(message, 'fid')
+            id: message.getAttribute('mid'),
+            from: getText(from, 'name') || getText(from, 'email'),
+            firstline: getText(message, 'firstline'),
+            date: new Date(message.getAttribute('recv_date')),
+            attach: parseInt(message.getAttribute('att_count'), 10),
+            fid: message.getAttribute('fid')
         };
     });
 }
 
-function parse(xmlDoc) {
-    let messages = xml.select('mailbox_list', xmlDoc);
-    let folders = xml.select('folder_list', xmlDoc);
+module.exports = function (xml) {
+    let messages = xml.querySelector('mailbox_list');
+    let folders = xml.querySelector('folder_list');
 
     if (!messages || !folders) {
         throw new Error('Bad response format in messages xml');
     }
 
-    const error = xml.select('error', messages);
+    const error = messages.querySelector('error');
 
     if (error) {
-        throw new Error(`Error occurred while parsing messages xml ${xml.getAttr(error, 'code')}`);
+        throw new Error(`Error occurred while parsing messages xml ${error.getAttribute('code')}`);
     }
 
-    const details = xml.select('details', messages);
-    const unreadCount = parseInt(xml.getAttr(details, 'msg_count'), 10);
+    const details = messages.querySelector('details');
+    const unreadCount = parseInt(details.getAttribute('msg_count'), 10);
 
-    messages = parseMessages(messages);
-    folders = parseFolders(folders);
+    messages = parseMessages(messages.querySelectorAll('message'));
+    folders = parseFolders(folders.querySelectorAll('folder'));
 
     messages = getFilteredMessage(messages, folders);
 
@@ -65,6 +69,4 @@ function parse(xmlDoc) {
         unreadCount,
         messages
     };
-}
-
-module.exports = parse;
+};

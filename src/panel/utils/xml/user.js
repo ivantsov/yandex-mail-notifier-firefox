@@ -1,15 +1,9 @@
-const xml = require('./parser');
-
-function parse(xmlDoc) {
-    const error = xml.select('error', xmlDoc);
+module.exports = function (xml) {
+    const error = xml.querySelector('error');
 
     if (error) {
-        throw new Error(`Error occurred while parsing user xml ${xml.getAttr(error, 'code')}`);
+        throw new Error(`Error occurred while parsing user xml ${error.getAttribute('code')}`);
     }
 
-    const body = xml.select('body', xmlDoc);
-
-    return xml.getText(body, 'default_email');
-}
-
-module.exports = parse;
+    return xml.querySelector('body').querySelector('default_email').textContent;
+};
