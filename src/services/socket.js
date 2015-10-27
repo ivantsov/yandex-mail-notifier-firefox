@@ -23,9 +23,9 @@ function connect() {
         getUnreadCount(),
         getSocketCredentials(uid)
     ]).then(([unreadCount, credentials]) => {
-        emit('connect', credentials);
-
         setTimeout(reconnect, SOCKET.RECONNECT_INTERVAL);
+
+        emit('connect', credentials);
 
         updateState({
             isAuth: true,
@@ -39,6 +39,7 @@ function connect() {
 }
 
 function reconnect() {
+    console.log('RECONNECT');
     disconnect();
     connect();
 }
