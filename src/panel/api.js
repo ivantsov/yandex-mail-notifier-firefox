@@ -1,6 +1,5 @@
 const {API_URL, IGNORED_FOLDERS} = require('../config');
-const userParser = require('./utils/xml/user');
-const messagesParser = require('./utils/xml/messages');
+const parser = require('./utils/parser');
 
 function logError(status, res) {
     var error = new Error(status);
@@ -33,22 +32,10 @@ function request(url) {
     });
 }
 
-function loadData() {
-    return Promise.all([
-        request(`${API_URL}settings_setup`),
-        request(`${API_URL}mailbox_list?first=0&last=100&extra_cond=only_new&goto=all`)
-    ]).then(([userXml, messagesXml]) => {
-        const user = userParser(userXml);
-        const {messages, unreadCount} = messagesParser(messagesXml);
-
-        return {
-            user,
-            unreadCount,
-            messages
-        };
-    });
+function loadMessages() {
+    return request(`${API_URL}mailbox_list?first=0&last=100&extra_cond=only_new&goto=all`).then(parser);
 }
 
 module.exports = {
-    loadData
+    loadMessages
 };

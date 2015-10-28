@@ -1,29 +1,21 @@
 const {
-    LOAD_DATA,
-    LOAD_DATA_SUCCESS,
-    LOAD_DATA_ERROR
+    LOAD_MESSAGES,
+    LOAD_MESSAGES_SUCCESS,
+    LOAD_MESSAGES_ERROR
 } = require('./constants');
 
-const initialState = {
-    loading: false,
-    user: '',
-    unreadCount: 0,
-    messages: []
-};
-
-function reducer(state = initialState, action) {
+function reducer(state, action) {
     switch (action.type) {
-        case LOAD_DATA:
+        case LOAD_MESSAGES:
+            return {
+                loading: true,
+                ...state
+            };
+        case LOAD_MESSAGES_SUCCESS:
             return {
                 ...state,
-                loading: true
-            };
-        case LOAD_DATA_SUCCESS:
-            return {
                 loading: false,
-                user: action.user,
-                unreadCount: action.unreadCount,
-                messages: action.messages
+                ...action.data
             };
         default:
             return state;

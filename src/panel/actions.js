@@ -1,19 +1,19 @@
 const api = require('./api');
 const {
-    LOAD_DATA,
-    LOAD_DATA_SUCCESS,
-    LOAD_DATA_ERROR
+    LOAD_MESSAGES,
+    LOAD_MESSAGES_SUCCESS,
+    LOAD_MESSAGES_ERROR
 } = require('./constants');
 
-function loadData() {
+function loadMessages() {
     return dispatch => {
-        dispatch({type: LOAD_DATA});
+        dispatch({type: LOAD_MESSAGES});
 
-        return api.loadData()
+        return api.loadMessages()
             .then(data =>
                 dispatch({
-                    type: LOAD_DATA_SUCCESS,
-                    ...data
+                    type: LOAD_MESSAGES_SUCCESS,
+                    data
                 })
             )
             .catch(err => console.error(err.stack));
@@ -22,5 +22,5 @@ function loadData() {
 
 
 module.exports = {
-    loadData
+    loadMessages
 };
