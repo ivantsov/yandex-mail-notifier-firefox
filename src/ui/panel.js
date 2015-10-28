@@ -1,5 +1,6 @@
 const _ = require('sdk/l10n').get;
 const {Panel} = require('sdk/panel');
+const {openTab} = require('../services/tab');
 const {getState} = require('../observer');
 
 const panel = Panel({
@@ -45,6 +46,12 @@ function showPanel(position) {
 function isShown() {
     return panel.isShowing;
 }
+
+panel.port.on('openTab', (url) => {
+	panel.hide();
+
+	openTab(url);
+});
 
 module.exports = {
     showPanel,
