@@ -4,4 +4,6 @@ const rootReducer = require('./reducers');
 
 const createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
 
-module.exports = createStoreWithMiddleware(rootReducer);
+module.exports = function(initialState) {
+	return createStoreWithMiddleware(rootReducer, initialState);
+};
