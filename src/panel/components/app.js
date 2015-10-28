@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 const {connect} = require('react-redux');
-const {loadData} = require('../actions');
+const {loadMessages} = require('../actions');
 const Spinner = require('./spinner');
 const Header = require('./header');
 const List = require('./list');
@@ -13,14 +13,8 @@ const App = React.createClass({
         messages: PropTypes.arrayOf(PropTypes.object).isRequired
     },
     componentWillMount() {
-        this.props.dispatch(loadData());
+        this.props.dispatch(loadMessages());
     },
-    //componentWillReceiveProps(newProps) {// Might be use date, and in mapStateToProps loading set to true
-    //    console.log('WILL RECEIVE PROPS');
-    //    if (newProps.date !== this.props.date) {
-    //        this.props.dispatch(loadMessages());
-    //    }
-    //},
     render() {
         const {
             loading,
@@ -28,8 +22,6 @@ const App = React.createClass({
             unreadCount,
             messages
         } = this.props;
-
-        console.log('RENDER LOADING', loading);
 
         return loading ? <Spinner/> : (
             <div className="container">
