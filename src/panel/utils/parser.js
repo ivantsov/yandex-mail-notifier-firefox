@@ -1,4 +1,4 @@
-const {IGNORED_FOLDERS} = require('../../../config');
+const {IGNORED_FOLDERS} = require('../../config');
 
 function getText(element, selector) {
     return element.querySelector(selector).textContent;
