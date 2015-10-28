@@ -2,7 +2,7 @@ const {setTimeout} = require('sdk/timers');
 const {Page} = require('sdk/page-worker');
 const {Class} = require('sdk/core/heritage');
 const {RECONNECT_INTERVAL, SOCKET, COOKIE: {UID}} = require('../config');
-const {getUnreadCount, getSocketCredentials} = require('./api');
+const {getUserInfo, getUnreadCount, getSocketCredentials} = require('./api');
 const {getCookie} = require('./cookie');
 const {updateState, updateStateToInitial} = require('../observer');
 
@@ -20,22 +20,19 @@ function connect() {
     const uid = getCookie(UID);
 
     Promise.all([
+        getUserInfo(),
         getUnreadCount(),
         getSocketCredentials(uid)
-    ]).then(([unreadCount, credentials]) => {
+    ]).then(([user, unreadCount, credentials]) => {
         setTimeout(reconnect, SOCKET.RECONNECT_INTERVAL);
 
         emit('connect', credentials);
 
         updateState({
-            isAuth: true,
+            user,
             unreadCount
         });
-    }).catch(err => {
-        setTimeout(connect, RECONNECT_INTERVAL);
-
-        updateStateToInitial();
-    });
+    }).catch(err => setTimeout(connect, RECONNECT_INTERVAL));
 }
 
 function reconnect() {

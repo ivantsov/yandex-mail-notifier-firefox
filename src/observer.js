@@ -3,7 +3,7 @@ const {createStore} = require('redux');
 const UPDATE_STATE = 'UPDATE_STATE';
 
 const initialState = {
-    isAuth: false,
+    user: null,
     unreadCount: 0
 };
 

@@ -12,14 +12,14 @@ module.exports.init = function () {
         icon: ICON_GRAY,
         label: _('buttonLabel'),
         onClick() {
-            prefs.showPanel && getState().isAuth ? showPanel(button) : openTab()
+            prefs.showPanel && getState().user ? showPanel(button) : openTab()
         }
     });
 
-    addHandler(({isAuth, unreadCount}) => {
+    addHandler(({user, unreadCount}) => {
         button.state(button, {
             badge: unreadCount || null,
-            icon: isAuth ? ICON : ICON_GRAY
+            icon: user ? ICON : ICON_GRAY
         });
     });
 };
