@@ -14,6 +14,10 @@ a {
     text-decoration: none;
 }
 
+.svg {
+	display: none;
+}
+
 .container {
     position: fixed;
     top: 0;
