@@ -14,7 +14,6 @@ const panel = Panel({
         l10n: {
             compose: _('compose'),
             markRead: _('markRead'),
-            reply: _('reply'),
             spam: _('spam'),
             remove: _('remove'),
             month1: _('month1'),

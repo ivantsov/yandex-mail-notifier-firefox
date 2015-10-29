@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 const l10n = require('../utils/l10n');
 const {openTab} = require('../utils/tab');
+const HoverMenu = require('./hover-menu');
 
 const Item = ({id, from, subject, firstline, date}) => {
     return (
@@ -13,6 +14,8 @@ const Item = ({id, from, subject, firstline, date}) => {
             <p className="email__subject">{subject}</p>
 
             <p className="email__content">{firstline}</p>
+
+			<HoverMenu id={id}/>
         </a>
     );
 };
