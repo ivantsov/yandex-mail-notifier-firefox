@@ -14,8 +14,13 @@
     "fennec": ">=38.0a1"
   },
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ivantsov/yandex-mail-notifier.git"
+  },
   "scripts": {
-    "lint": "eslint --fix src data/socket data/sound",
+    "lint": "eslint src data/socket data/sound",
+    "lint:fix": "eslint --fix src data/socket data/sound",
     "watch": "webpack --config webpack.config.dev.js --watch",
     "build": "webpack --config webpack.config.prod.js"
   },
@@ -25,14 +30,14 @@
     "babel-loader": "^5.3.2",
     "eslint": "^1.6.0",
     "eslint-config-airbnb": "^0.1.0",
+    "eslint-plugin-react": "^3.6.3",
     "webpack": "^1.12.2"
   },
   "dependencies": {
-    "install": "^0.1.8",
-    "react": "^0.14.0",
-    "react-dom": "^0.14.0",
+    "react": "^0.14.1",
+    "react-dom": "^0.14.1",
     "react-redux": "^4.0.0",
-    "redux": "^3.0.2",
+    "redux": "^3.0.4",
     "redux-thunk": "^1.0.0"
   },
   "permissions": {
