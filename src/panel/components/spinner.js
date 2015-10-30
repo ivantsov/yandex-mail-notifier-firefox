@@ -9,7 +9,7 @@ const Spinner = () => {
             <div className="rect4"></div>
             <div className="rect5"></div>
         </div>
-    )
+    );
 };
 
 module.exports = Spinner;
