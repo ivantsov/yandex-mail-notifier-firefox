@@ -27,7 +27,10 @@ const panel = Panel({
             month9: _('month9'),
             month10: _('month10'),
             month11: _('month11'),
-            month12: _('month12')
+            month12: _('month12'),
+			emptyList: _('emptyList'),
+			loadingError: _('loadingError'),
+			operationError: _('operationError')
         }
     },
     onShow() {
