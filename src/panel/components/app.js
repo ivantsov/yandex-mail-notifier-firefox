@@ -10,11 +10,13 @@ const App = React.createClass({
     propTypes: {
         dispatch: PropTypes.func.isRequired,
         user: PropTypes.string.isRequired,
-		unreadCount: PropTypes.number.isRequired,
-        messages: PropTypes.arrayOf(PropTypes.object).isRequired,
-        loading: PropTypes.bool.isRequired,
-		loadingError: PropTypes.bool.isRequired,
-		operationError: PropTypes.bool.isRequired
+        messages: PropTypes.shape({
+            unreadCount: PropTypes.number.isRequired,
+            items: PropTypes.arrayOf(PropTypes.object).isRequired,
+            loading: PropTypes.bool.isRequired,
+            error: PropTypes.bool.isRequired
+        }).isRequired,
+		notification: PropTypes.number.isRequired
     },
     componentWillMount() {
         this.props.dispatch(loadMessages());
@@ -23,19 +25,21 @@ const App = React.createClass({
         const {
 			dispatch,
             user,
-            unreadCount,
-            messages,
-            loading,
-			loadingError,
-			operationError
+            messages: {
+                unreadCount,
+                items,
+                loading,
+                error
+            },
+			notification
         } = this.props;
 
         return loading ? <Spinner/> : (
             <div className="container">
-				<Notification error={operationError}/>
+				<Notification id={notification}/>
                 <Header user={user} unreadCount={unreadCount}/>
-                <List items={messages}
-					  loadingError={loadingError}
+                <List items={items}
+					  error={error}
 					  onUpdateMessageStatus={data => dispatch(updateMessageStatus(data))}/>
             </div>
         );

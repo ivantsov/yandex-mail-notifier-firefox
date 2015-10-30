@@ -8,14 +8,7 @@ const mountNode = document.getElementById('app');
 const addListener = self.port.on;
 
 addListener('show', user => {
-    const store = configureStore({
-        user,
-        unreadCount: 0,
-        messages: [],
-        loading: true,
-		loadingError: false,
-		operationError: false
-    });
+    const store = configureStore({user});
 
     render(
         <Provider store={store}>

@@ -2,7 +2,7 @@ const {
     LOAD_MESSAGES_SUCCESS,
     LOAD_MESSAGES_ERROR,
     UPDATE_MESSAGE_STATUS_SUCCESS
-} = require('./constants');
+} = require('../constants');
 
 const initialState = {
 	unreadCount: 0,

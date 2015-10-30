@@ -8,33 +8,26 @@ const Notification = React.createClass({
 			isShown: false
 		};
 	},
-	componentWillReceiveProps({error}) {
-		console.log('will receive props', error);
-		console.log('will receive props', this.state);
+	componentWillReceiveProps({id}) {
 		clearTimeout(this.timer);
 
-		this.setState({isShown: error});
+		this.setState({isShown: true});
 
-		if (error) {
-			this.timer = setTimeout(() => {
-				console.log('inside timeout', this.isMounted());
-				if (this.isMounted()) {
-					this.setState({isShown: false})
-				}
-			}, NOTIFICATION_TIMEOUT);
-		}
+		this.timer = setTimeout(() => {
+			if (this.isMounted()) {
+				this.setState({isShown: false})
+			}
+		}, NOTIFICATION_TIMEOUT);
 	},
 	render() {
 		const className = `notification ${this.state.isShown ? 'notification_open' : ''}`;
-
-		console.log('redener', this.state);
 
 		return <div className={className}>{l10n.text('operationError')}</div>;
 	}
 });
 
 Notification.propTypes = {
-	error: PropTypes.bool.isRequired
+	id: PropTypes.number.isRequired
 };
 
 module.exports = Notification;
