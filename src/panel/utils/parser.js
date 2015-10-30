@@ -43,7 +43,7 @@ function parseMessages(messages) {
     });
 }
 
-module.exports = function (xml) {
+function parse(xml) {
     let messages = xml.querySelector('mailbox_list');
     let folders = xml.querySelector('folder_list');
 
@@ -69,4 +69,6 @@ module.exports = function (xml) {
         unreadCount,
         items: messages
     };
-};
+}
+
+module.exports = parse;

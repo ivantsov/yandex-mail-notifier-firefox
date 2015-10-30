@@ -1,3 +1,5 @@
-module.exports.openTab = function (url) {
+function openTab(url) {
     self.port.emit('openTab', url);
-};
+}
+
+module.exports.openTab = openTab;

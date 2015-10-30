@@ -1,11 +1,11 @@
 const {API_URL} = require('../../config');
 
 function logError(status, res) {
-    var error = new Error(status);
+    const error = new Error(status);
 
     error.response = res;
 
-    console.error(error);
+    console.error(error); // eslint-disable-line no-console
 }
 
 function encodeParam(name, value) {
@@ -13,10 +13,10 @@ function encodeParam(name, value) {
 }
 
 function getParamsString(params = {}) {
-    let keys = [];
+    const keys = [];
 
     Object.keys(params).forEach(key => {
-        let value = params[key];
+        const value = params[key];
 
         if (Array.isArray(value)) {
             value.forEach(item => keys.push(encodeParam(key, item)));
@@ -33,7 +33,7 @@ function request({type, url, params}) {
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
 
-        xhr.onload = function() {
+        xhr.onload = function () { // eslint-disable-line func-names
             if (this.status >= 200 && this.status < 300) {
                 resolve(this.responseXML);
             }
@@ -43,7 +43,7 @@ function request({type, url, params}) {
             }
         };
 
-        xhr.onerror = function () {
+        xhr.onerror = function () { // eslint-disable-line func-names
             logError(this.statusText, this.response);
             reject();
         };

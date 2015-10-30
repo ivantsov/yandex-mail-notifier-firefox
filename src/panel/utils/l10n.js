@@ -6,11 +6,7 @@ function text(key) {
 }
 
 function addNil(value) {
-    if (value < 10) {
-        value = `0${value}`;
-    }
-
-    return value;
+    return value < 10 ? `0${value}` : value;
 }
 
 function date(value) {
