@@ -1,6 +1,8 @@
 const {open} = require('sdk/tabs');
 const {DOMAIN} = require('../config');
 
-module.exports.openTab = function (url) {
+function openTab(url) {
     open(`${DOMAIN}/${url || ''}`);
-};
+}
+
+module.exports.openTab = openTab;

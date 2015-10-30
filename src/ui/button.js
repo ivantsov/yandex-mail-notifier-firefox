@@ -6,13 +6,13 @@ const {addHandler, getState} = require('../observer');
 const {openTab} = require('../services/tab');
 const {showPanel} = require('./panel');
 
-module.exports.init = function () {
+function init() {
     const button = ActionButton({
         id: ID,
         icon: ICON_GRAY,
         label: _('buttonLabel'),
         onClick() {
-            prefs.showPanel && getState().user ? showPanel(button) : openTab()
+            prefs.showPanel && getState().user ? showPanel(button) : openTab();
         }
     });
 
@@ -22,4 +22,6 @@ module.exports.init = function () {
             icon: user ? ICON : ICON_GRAY
         });
     });
-};
+}
+
+module.exports.init = init;

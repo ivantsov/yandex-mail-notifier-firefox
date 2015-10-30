@@ -2,11 +2,11 @@ const {XMLHttpRequest} = require('sdk/net/xhr');
 const {API_URL, UNREAD_MESSAGE_URL, SOCKET} = require('../config');
 
 function createError(res) {
-    let err = new Error(res.statusText);
+    const err = new Error(res.statusText);
 
     err.response = res;
 
-    console.error(err);
+    console.error(err); // eslint-disable-line no-console
 
     return err;
 }
@@ -22,7 +22,7 @@ function request({url, type}) {
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
 
-        xhr.onload = function () {
+        xhr.onload = function () { // eslint-disable-line func-names
             if (this.status >= 200 && this.status < 300) {
                 let result;
 
@@ -30,7 +30,7 @@ function request({url, type}) {
                     result = JSON.parse(this.response);
 
                     if (result.code === 'AUTH_NO_AUTH') {
-                        reject(createError(createUnauthorizedError(res)));
+                        reject(createError(createUnauthorizedError(this)));
                     }
                 }
                 else if (type === 'xml') {
@@ -44,7 +44,7 @@ function request({url, type}) {
             }
         };
 
-        xhr.onerror = function () {
+        xhr.onerror = function () { // eslint-disable-line func-names
             reject(createError(this));
         };
 
