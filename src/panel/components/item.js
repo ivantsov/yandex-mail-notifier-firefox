@@ -3,19 +3,19 @@ const l10n = require('../utils/l10n');
 const {openTab} = require('../utils/tab');
 const HoverMenu = require('./hover-menu');
 
-const Item = ({id, from, subject, firstline, date}) => {
+const Item = ({id, from, subject, firstline, date, onUpdateMessageStatus}) => {
     return (
         <a className="email" href="#" onClick={() => openTab(`#message/${id}`)}>
-            <p className="email__header">
-                <span className="email__title">{from}</span>
+            <p>
+                <span className="email__from">{from}</span>
                 <span className="email__date">{l10n.date(date)}</span>
             </p>
 
-            <p className="email__subject">{subject}</p>
+            <p>{subject}</p>
 
             <p className="email__content">{firstline}</p>
 
-			<HoverMenu id={id}/>
+			<HoverMenu id={id} onUpdateMessageStatus={onUpdateMessageStatus}/>
         </a>
     );
 };
@@ -25,7 +25,8 @@ Item.propTypes = {
     from: PropTypes.string.isRequired,
     subject: PropTypes.string.isRequired,
     firstline: PropTypes.string.isRequired,
-    date: PropTypes.object.isRequired
+    date: PropTypes.object.isRequired,
+	onUpdateMessageStatus: PropTypes.func.isRequired
 };
 
 module.exports = Item;

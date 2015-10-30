@@ -5,13 +5,16 @@ const App = require('./components/app');
 const configureStore = require('./store');
 
 const mountNode = document.getElementById('app');
+const addListener = self.port.on;
 
-self.port.on('show', user => {
+addListener('show', user => {
     const store = configureStore({
         user,
-        loading: true,
         unreadCount: 0,
-        messages: []
+        messages: [],
+        loading: true,
+		loadingError: false,
+		operationError: false
     });
 
     render(
@@ -21,4 +24,4 @@ self.port.on('show', user => {
     );
 });
 
-self.port.on('hide', () => unmountComponentAtNode(mountNode));
+addListener('hide', () => unmountComponentAtNode(mountNode));

@@ -10,6 +10,7 @@ module.exports = {
     UNREAD_MESSAGE_URL: `${API_URL}/v2/bar/counters?silent`,
     IGNORED_FOLDERS: ['spam', 'archive', 'trash', 'sent', 'outbox', 'draft'],
     RECONNECT_INTERVAL: 60 * 1000, // 1 min
+	NOTIFICATION_TIMEOUT: 3 * 1000, // 3 sec
     SOCKET: {
         CREDENTIALS_URL: `${DOMAIN}/neo2/handlers/xiva_sub.jsx`,
         URL: 'wss://xiva-daria.mail.yandex.net/events/websocket/',
