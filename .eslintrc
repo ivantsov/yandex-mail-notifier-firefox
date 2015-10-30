@@ -1,11 +1,25 @@
 {
-    "extends": "airbnb/base",
+    "extends": "airbnb",
     "rules": {
-        "indent": [2, 4],
+        "indent": [2, 4, {"SwitchCase": 1}],
         "comma-dangle": [2, "never"],
         "brace-style": [2, "stroustrup"],
+        "prefer-arrow-callback": 2,
+        "prefer-spread": 2,
+        "object-shorthand": [2, "always"],
         "new-cap": [2, {"newIsCap": true, "capIsNew": false}],
-        "no-var": 0,
-        "id-length": 0
+        "space-before-function-paren": 0,
+        "no-unused-expressions": [2, {"allowShortCircuit": true, "allowTernary": true}],
+        "id-length": 0,
+        "react/sort-comp": [2, {
+            "order": [
+                "lifecycle",
+                "render",
+                "/^render.+$/",
+                "/^on.+$/",
+                "/^(get|set)(?!(InitialState$|DefaultProps$|ChildContext$)).+$/",
+                "everything-else"
+            ]
+        }]
     }
 }
