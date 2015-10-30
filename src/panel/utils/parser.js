@@ -67,6 +67,6 @@ module.exports = function (xml) {
 
     return {
         unreadCount,
-        messages
+        items: messages
     };
 };
