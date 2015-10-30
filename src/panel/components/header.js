@@ -5,13 +5,13 @@ const {openTab} = require('../utils/tab');
 const Header = ({user, unreadCount}) => {
     return (
         <div className="header">
-            <a className="header__open" href="#" onClick={() => openTab()}>
+            <a href="#" onClick={() => openTab()}>
 				<svg xmlns="http://www.w3.org/2000/svg" className="header__icon-mail">
 					<use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="#logo"></use>
 				</svg>
             </a>
-            <span className="header__account">{user} (<strong>{unreadCount}</strong>)</span>
-            <a className="header__compose" href="#" onClick={() => openTab('#compose')}>
+            <span>{user} (<strong>{unreadCount}</strong>)</span>
+            <a href="#" onClick={() => openTab('#compose')}>
 				<svg xmlns="http://www.w3.org/2000/svg" className="header__icon-compose">
 					<use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="#compose"></use>
 				</svg> {l10n.text('compose')}
