@@ -28,9 +28,9 @@ const panel = Panel({
             month10: _('month10'),
             month11: _('month11'),
             month12: _('month12'),
-			emptyList: _('emptyList'),
-			loadingError: _('loadingError'),
-			operationError: _('operationError')
+            emptyList: _('emptyList'),
+            loadingError: _('loadingError'),
+            operationError: _('operationError')
         }
     },
     onShow() {
@@ -50,9 +50,9 @@ function isShown() {
 }
 
 panel.port.on('openTab', (url) => {
-	panel.hide();
+    panel.hide();
 
-	openTab(url);
+    openTab(url);
 });
 
 module.exports = {

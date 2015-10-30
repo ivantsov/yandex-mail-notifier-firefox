@@ -15,7 +15,7 @@ const Item = ({id, from, subject, firstline, date, onUpdateMessageStatus}) => {
 
             <p className="email__content">{firstline}</p>
 
-			<HoverMenu id={id} onUpdateMessageStatus={onUpdateMessageStatus}/>
+            <HoverMenu id={id} onUpdateMessageStatus={onUpdateMessageStatus}/>
         </a>
     );
 };
@@ -26,7 +26,7 @@ Item.propTypes = {
     subject: PropTypes.string.isRequired,
     firstline: PropTypes.string.isRequired,
     date: PropTypes.object.isRequired,
-	onUpdateMessageStatus: PropTypes.func.isRequired
+    onUpdateMessageStatus: PropTypes.func.isRequired
 };
 
 module.exports = Item;

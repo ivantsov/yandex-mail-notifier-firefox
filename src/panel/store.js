@@ -4,6 +4,6 @@ const reducers = require('./reducers');
 
 const createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
 
-module.exports = function(initialState) {
-	return createStoreWithMiddleware(reducers, initialState);
+module.exports = function (initialState) {
+    return createStoreWithMiddleware(reducers, initialState);
 };

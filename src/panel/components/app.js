@@ -16,14 +16,14 @@ const App = React.createClass({
             loading: PropTypes.bool.isRequired,
             error: PropTypes.bool.isRequired
         }).isRequired,
-		notification: PropTypes.number.isRequired
+        notification: PropTypes.number.isRequired
     },
     componentWillMount() {
         this.props.dispatch(loadMessages());
     },
     render() {
         const {
-			dispatch,
+            dispatch,
             user,
             messages: {
                 unreadCount,
@@ -31,16 +31,16 @@ const App = React.createClass({
                 loading,
                 error
             },
-			notification
+            notification
         } = this.props;
 
         return loading ? <Spinner/> : (
             <div className="container">
-				<Notification id={notification}/>
+                <Notification id={notification}/>
                 <Header user={user} unreadCount={unreadCount}/>
                 <List items={items}
-					  error={error}
-					  onUpdateMessageStatus={data => dispatch(updateMessageStatus(data))}/>
+                      error={error}
+                      onUpdateMessageStatus={data => dispatch(updateMessageStatus(data))}/>
             </div>
         );
     }

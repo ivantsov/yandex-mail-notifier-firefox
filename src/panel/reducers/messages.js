@@ -5,10 +5,10 @@ const {
 } = require('../constants');
 
 const initialState = {
-	unreadCount: 0,
-	items: [],
-	loading: true,
-	error: false
+    unreadCount: 0,
+    items: [],
+    loading: true,
+    error: false
 };
 
 function reducer(state = initialState, action) {
