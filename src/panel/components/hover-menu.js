@@ -2,19 +2,22 @@ import React, {PropTypes} from 'react';
 const l10n = require('../utils/l10n');
 const {openTab} = require('../utils/tab');
 
-const HoverMenu = ({id}) => {
+const HoverMenu = ({id, onUpdateMessageStatus}) => {
 	const params = {
 		markRead(e) {
 			e.stopPropagation();
-			console.log('mark as read');
+
+			onUpdateMessageStatus({id, oper: 'mark_read'});
 		},
 		remove(e) {
 			e.stopPropagation();
-			console.log('remove');
+
+			onUpdateMessageStatus({id, oper: 'delete'});
 		},
 		spam(e) {
 			e.stopPropagation();
-			console.log('spam');
+
+			onUpdateMessageStatus({id, oper: 'tospam'});
 		}
 	};
 
@@ -31,7 +34,8 @@ const HoverMenu = ({id}) => {
 };
 
 HoverMenu.propTypes = {
-	id: PropTypes.string.isRequired
+	id: PropTypes.string.isRequired,
+	onUpdateMessageStatus: PropTypes.func.isRequired
 };
 
 module.exports = HoverMenu;
