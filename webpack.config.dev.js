@@ -2,7 +2,7 @@ module.exports = {
     entry: './src/panel/index.js',
     output: {
         path: './data/panel',
-        filename: './index.js'
+        filename: 'index.js'
     },
     resolve: {
         extensions: ['', '.js']
