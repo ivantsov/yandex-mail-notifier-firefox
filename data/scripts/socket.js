@@ -31,6 +31,7 @@ function onMessage({data}) {
     }
 
     console.log(data);
+
     const {operation, message} = data;
 
     if (operation !== 'ping') {

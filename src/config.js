@@ -3,8 +3,8 @@ const API_URL = `${DOMAIN}/api/`;
 
 module.exports = {
     ID: 'yandex-mail-notifier',
-    ICON: './icon.png',
-    ICON_GRAY: './icon-gray.png',
+    ICON: './icons/logo.png',
+    ICON_GRAY: './icons/logo-gray.png',
     DOMAIN,
     API_URL,
     UNREAD_MESSAGE_URL: `${API_URL}/v2/bar/counters?silent`,

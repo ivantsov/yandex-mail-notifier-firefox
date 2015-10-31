@@ -7,7 +7,7 @@ const {updateState} = require('../observer');
 
 const worker = Page({
     contentURL: './blank.html',
-    contentScriptFile: './socket.js'
+    contentScriptFile: './scripts/socket.js'
 });
 const emit = worker.port.emit;
 
