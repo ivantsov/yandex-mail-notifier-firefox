@@ -38,8 +38,10 @@ const App = React.createClass({
                 <Notification id={notification}/>
                 <Header user={user}
                         unreadCount={unreadCount}
+                        loading={loading}
                         onReload={() => dispatch(loadMessages())}/>
                 <List items={items}
+                      loading={loading}
                       error={error}
                       onUpdateMessageStatus={data => dispatch(updateMessageStatus(data))}/>
             </div>
