@@ -7,8 +7,8 @@ const configureStore = require('./store');
 const mountNode = document.getElementById('app');
 const addListener = self.port.on;
 
-addListener('show', user => {
-    const store = configureStore({user});
+addListener('show', initialState => {
+    const store = configureStore(initialState);
 
     render(
         <Provider store={store}>

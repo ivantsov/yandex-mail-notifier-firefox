@@ -34,7 +34,12 @@ const panel = Panel({
         }
     },
     onShow() {
-        panel.port.emit('show', getState().user);
+        const {user, unreadCount} = getState();
+
+        panel.port.emit('show', {
+            user,
+            messages: {unreadCount}
+        });
     },
     onHide() {
         panel.port.emit('hide');

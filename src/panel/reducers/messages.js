@@ -38,7 +38,10 @@ function reducer(state = initialState, action) {
                 items: state.items.filter(({id}) => id !== action.id)
             };
         default:
-            return state;
+            return {
+                ...initialState,
+                ...state
+            };
     }
 }
 
