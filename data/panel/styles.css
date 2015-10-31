@@ -9,6 +9,10 @@ p {
     padding: 0;
 }
 
+button::-moz-focus-inner {
+    border: 0;
+}
+
 a {
     color: black;
     text-decoration: none;
@@ -47,6 +51,27 @@ a:focus {
     width: 54px;
     height: 30px;
     fill: #859dc6;
+}
+
+.header__reload {
+    background: none;
+    padding: 0;
+    border: 0;
+    margin-left: 10px;
+    cursor: pointer;
+    filter: grayscale(100%);
+    transition: 0.2s filter;
+}
+
+.header__reload:hover {
+    filter: grayscale(0);
+}
+
+.header__icon-reload {
+    width: 15px;
+    height: 15px;
+    vertical-align: middle;
+    fill: #86ba82;
 }
 
 .header__icon-compose {

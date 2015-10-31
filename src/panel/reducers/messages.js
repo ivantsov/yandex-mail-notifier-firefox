@@ -1,4 +1,5 @@
 const {
+    LOAD_MESSAGES,
     LOAD_MESSAGES_SUCCESS,
     LOAD_MESSAGES_ERROR,
     UPDATE_MESSAGE_STATUS_SUCCESS
@@ -13,6 +14,11 @@ const initialState = {
 
 function reducer(state = initialState, action) {
     switch (action.type) {
+        case LOAD_MESSAGES:
+            return {
+                ...state,
+                loading: true
+            };
         case LOAD_MESSAGES_SUCCESS:
             return {
                 ...state,

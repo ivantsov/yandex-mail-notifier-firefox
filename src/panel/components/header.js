@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 const l10n = require('../utils/l10n');
 const {openTab} = require('../utils/tab');
 
-const Header = ({user, unreadCount}) => {
+const Header = ({user, unreadCount, loading, onReload}) => {
     return (
         <div className="header">
             <a href="#" onClick={() => openTab()}>
@@ -10,7 +10,14 @@ const Header = ({user, unreadCount}) => {
                     <use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="#logo"></use>
                 </svg>
             </a>
-            <span>{user} (<strong>{unreadCount}</strong>)</span>
+            <div>
+                {user} (<strong>{unreadCount}</strong>)
+                <button className="header__reload" disabled={loading} onClick={onReload}>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="header__icon-reload">
+                        <use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="#reload"></use>
+                    </svg>
+                </button>
+            </div>
             <a href="#" onClick={() => openTab('#compose')}>
                 <svg xmlns="http://www.w3.org/2000/svg" className="header__icon-compose">
                     <use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="#compose"></use>
@@ -22,7 +29,9 @@ const Header = ({user, unreadCount}) => {
 
 Header.propTypes = {
     user: PropTypes.string.isRequired,
-    unreadCount: PropTypes.number.isRequired
+    unreadCount: PropTypes.number.isRequired,
+    loading: PropTypes.bool.isRequired,
+    onReload: PropTypes.func.isRequired
 };
 
 module.exports = Header;

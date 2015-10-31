@@ -1,5 +1,6 @@
 const api = require('./api');
 const {
+    LOAD_MESSAGES,
     LOAD_MESSAGES_SUCCESS,
     LOAD_MESSAGES_ERROR,
     UPDATE_MESSAGE_STATUS_SUCCESS,
@@ -8,6 +9,8 @@ const {
 
 function loadMessages() {
     return dispatch => {
+        dispatch({type: LOAD_MESSAGES});
+
         return api.loadMessages()
             .then(data =>
                 dispatch({

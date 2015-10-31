@@ -1,7 +1,6 @@
 import React, {PropTypes} from 'react';
 const {connect} = require('react-redux');
 const {loadMessages, updateMessageStatus} = require('../actions');
-const Spinner = require('./spinner');
 const Notification = require('./notification');
 const Header = require('./header');
 const List = require('./list');
@@ -34,10 +33,12 @@ const App = React.createClass({
             notification
         } = this.props;
 
-        return loading ? <Spinner/> : (
+        return (
             <div className="container">
                 <Notification id={notification}/>
-                <Header user={user} unreadCount={unreadCount}/>
+                <Header user={user}
+                        unreadCount={unreadCount}
+                        onReload={() => dispatch(loadMessages())}/>
                 <List items={items}
                       error={error}
                       onUpdateMessageStatus={data => dispatch(updateMessageStatus(data))}/>
