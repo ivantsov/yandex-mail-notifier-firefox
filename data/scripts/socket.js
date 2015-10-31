@@ -3,36 +3,34 @@ const emitEvent = self.port.emit;
 const addListener = self.port.on;
 
 function onOpen() {
-    console.log('Socket opened', arguments);
+    console.log('Socket opened', arguments); // eslint-disable-line no-console
 }
 
 function onClose() {
-    console.error('Socket closed', arguments);
+    console.error('Socket closed', arguments); // eslint-disable-line no-console
 
     emitEvent('reconnect');
 }
 
 function onError() {
-    console.error('Error occurred in socket', arguments);
+    console.error('Error occurred in socket', arguments); // eslint-disable-line no-console
 
     emitEvent('reconnect');
 }
 
 function onMessage({data}) {
+    let jsonData;
+
     try {
-        data = JSON.parse(data);
+        jsonData = JSON.parse(data);
     }
     catch (err) {
-        err = new Error('Cannot parse json in WebSocket "message" handler');
-
-        console.error(err);
-
         throw err;
     }
 
-    console.log(data);
+    console.log(jsonData);
 
-    const {operation, message} = data;
+    const {operation, message} = jsonData;
 
     if (operation !== 'ping') {
         message && message.new_messages ? emitEvent('newMessage', message) : emitEvent('changeStatus');

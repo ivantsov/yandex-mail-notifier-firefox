@@ -8,8 +8,25 @@ const initialState = {
 };
 
 let previousState = initialState;
-let handlers = [];
+const handlers = [];
 
+function isEqual(obj1, obj2) {
+    return Object.keys(obj1).every(key => obj1[key] === obj2[key]);
+}
+
+// reducer
+function reducer(state = initialState, action) {
+    switch (action.type) {
+        case UPDATE_STATE:
+            return Object.assign({}, state, action.data);
+        default:
+            return state;
+    }
+}
+
+const store = createStore(reducer);
+
+// actions
 function updateState(data) {
     store.dispatch({
         type: UPDATE_STATE,
@@ -23,21 +40,6 @@ function updateStateToInitial() {
         data: initialState
     });
 }
-
-function reducer(state = initialState, action) {
-    switch (action.type) {
-        case UPDATE_STATE:
-            return Object.assign({}, state, action.data);
-        default:
-            return state;
-    }
-}
-
-function isEqual(obj1, obj2) {
-    return Object.keys(obj1).every(key => obj1[key] === obj2[key]);
-}
-
-const store = createStore(reducer);
 
 store.subscribe(() => {
     const currentState = store.getState();
