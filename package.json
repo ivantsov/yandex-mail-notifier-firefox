@@ -19,8 +19,8 @@
     "url": "https://github.com/ivantsov/yandex-mail-notifier.git"
   },
   "scripts": {
-    "lint": "eslint src data/socket data/sound",
-    "lint:fix": "eslint --fix src data/socket data/sound",
+    "lint": "eslint src data/scripts",
+    "lint:fix": "eslint --fix src data/scripts",
     "watch": "webpack --config webpack.config.dev.js --watch",
     "build": "webpack --config webpack.config.prod.js"
   },
