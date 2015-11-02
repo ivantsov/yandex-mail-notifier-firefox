@@ -1,63 +1,33 @@
-const {createStore} = require('redux');
+const {EventTarget} = require('sdk/event/target');
+const {emit} = require('sdk/event/core');
+const {Class} = require('sdk/core/heritage');
 
-const UPDATE_STATE = 'UPDATE_STATE';
+const Observer = Class({
+    initialize() {
+        this.observer = EventTarget();
 
-const initialState = {
-    user: null,
-    unreadCount: 0
-};
+        this.state = {
+            user: null,
+            unreadCount: 0,
+            newMessage: null
+        };
+    },
+    addListener(eventName, handler) {
+        if (Array.isArray(eventName)) {
+            eventName.forEach(name => this.observer.on(name, handler));
+        }
+        else {
+            this.observer.on(eventName, handler);
+        }
+    },
+    emitEvent(eventName, params) {
+        Object.assign(this.state, params);
 
-let previousState = initialState;
-const handlers = [];
-
-function isEqual(obj1, obj2) {
-    return Object.keys(obj1).every(key => obj1[key] === obj2[key]);
-}
-
-// reducer
-function reducer(state = initialState, action) {
-    switch (action.type) {
-        case UPDATE_STATE:
-            return Object.assign({}, state, action.data);
-        default:
-            return state;
-    }
-}
-
-const store = createStore(reducer);
-
-// actions
-function updateState(data) {
-    store.dispatch({
-        type: UPDATE_STATE,
-        data
-    });
-}
-
-function updateStateToInitial() {
-    store.dispatch({
-        type: UPDATE_STATE,
-        data: initialState
-    });
-}
-
-store.subscribe(() => {
-    const currentState = store.getState();
-
-    if (!isEqual(currentState, previousState)) {
-        previousState = currentState;
-
-        handlers.forEach(handler => handler(currentState));
+        emit(this.observer, eventName, this.state);
+    },
+    getState() {
+        return this.state;
     }
 });
 
-function addHandler(handler) {
-    handlers.push(handler);
-}
-
-module.exports = {
-    getState: store.getState,
-    addHandler,
-    updateState,
-    updateStateToInitial
-};
+module.exports = new Observer();
