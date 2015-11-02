@@ -1,8 +1,8 @@
 yandex-mail-notifier
 ====================
 
-[![Dependency Status][david-image]][https://david-dm.org/ivantsov/yandex-mail-notifier.svg] 
-[![devDependency Status][david-dev-image]][https://david-dm.org/ivantsov/yandex-mail-notifier/dev-status.svg]
+[![Dependency Status](https://david-dm.org/ivantsov/yandex-mail-notifier.svg)[https://david-dm.org/ivantsov/yandex-mail-notifier/#info=dependencies] 
+[![devDependency Status](https://david-dm.org/ivantsov/yandex-mail-notifier/dev-status.svg)[https://david-dm.org/ivantsov/yandex-mail-notifier/#info=devDependencies]
 [![Build Status](https://travis-ci.org/ivantsov/yandex-mail-notifier.svg?branch=master)](https://travis-ci.org/ivantsov/yandex-mail-notifier)
 
 ###English
