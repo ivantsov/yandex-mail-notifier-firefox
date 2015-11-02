@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-const {NOTIFICATION_TIMEOUT} = require('../../config');
+const {ERROR_NOTIFICATION_TIMEOUT} = require('../../config');
 const l10n = require('../utils/l10n');
 
 const Notification = React.createClass({
@@ -18,7 +18,7 @@ const Notification = React.createClass({
                 if (this.isMounted()) {
                     this.setState({isShown: false});
                 }
-            }, NOTIFICATION_TIMEOUT);
+            }, ERROR_NOTIFICATION_TIMEOUT);
         }
     },
     render() {
