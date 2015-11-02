@@ -1,27 +1,44 @@
 const _ = require('sdk/l10n').get;
 const {prefs} = require('sdk/simple-prefs');
 const {ActionButton} = require('sdk/ui/button/action');
+const {Class} = require('sdk/core/heritage');
 const {ID, ICON, ICON_GRAY} = require('../config');
-const {addHandler, getState} = require('../observer');
-const {openTab} = require('../services/tab');
-const {showPanel} = require('./panel');
+const {openTab} = require('../utils/tab');
+const observer = require('../observer');
+const panel = require('./panel');
 
-function init() {
-    const button = ActionButton({
-        id: ID,
-        icon: ICON_GRAY,
-        label: _('buttonLabel'),
-        onClick() {
-            prefs.showPanel && getState().user ? showPanel(button) : openTab();
-        }
-    });
-
-    addHandler(({user, unreadCount}) => {
-        button.state(button, {
-            badge: unreadCount || null,
-            icon: user ? ICON : ICON_GRAY
+const Button = Class({
+    initialize() {
+        this.button = ActionButton({
+            id: ID,
+            icon: ICON_GRAY,
+            label: _('buttonLabel'),
+            onClick: () => this.onClick()
         });
-    });
-}
 
-module.exports.init = init;
+        this.addListeners();
+    },
+    addListeners() {
+        observer.addListener([
+            'logout',
+            'socket:error'
+        ], () => {
+            this.button.badge = null;
+            this.button.icon = ICON_GRAY;
+        });
+
+        observer.addListener([
+            'socket:success',
+            'unreadCountChanged',
+            'newMessage'
+        ], ({unreadCount}) => {
+            this.button.badge = unreadCount || null;
+            this.button.icon = ICON;
+        });
+    },
+    onClick() {
+        prefs.showPanel && observer.getState().user ? panel.showPanel(this.button) : openTab();
+    }
+});
+
+module.exports = new Button();
