@@ -41,7 +41,7 @@ const SocketService = Class({
                 observer.emitEvent('unreadCountChanged', {unreadCount});
             }
             else {
-                getUnreadCount().then(unreadCount => observer.emitEvent('unreadCountChanged', {unreadCount}));
+                getUnreadCount().then(unreadCount => observer.emitEvent('unreadCountChanged', {unreadCount})); // eslint-disable-line no-shadow
             }
         });
     },

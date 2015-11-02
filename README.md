@@ -1,5 +1,7 @@
 yandex-mail-notifier
 ====================
+[![Build Status](https://travis-ci.org/ivantsov/yandex-mail-notifier.svg?branch=master)](https://travis-ci.org/ivantsov/yandex-mail-notifier)
+
 ###English
 This is extension for Firefox, which check your Yandex.mail and notify you. *Extension to work you need to be authorized in Yandex.*
 

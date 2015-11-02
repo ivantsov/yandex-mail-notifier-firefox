@@ -1,8 +1,6 @@
-var {Page} = require('sdk/page-worker');
+const {Page} = require('sdk/page-worker');
 
-// TODO: use ES6 class when it will be released
-
-var worker;
+let worker;
 
 function init() {
     worker = Page({
