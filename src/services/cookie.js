@@ -1,30 +1,29 @@
 const events = require('sdk/system/events');
-const querystring = require('sdk/querystring');
-const {Cc, Ci} = require('chrome');
-const {nsICookieService, nsIIOService, nsICookie2} = Ci;
-const {getCookieString} = Cc['@mozilla.org/cookieService;1'].getService(nsICookieService);
-const {newURI} = Cc['@mozilla.org/network/io-service;1'].getService(nsIIOService);
-const {DOMAIN, COOKIE: {SESSION_ID, HOST, PATH}} = require('../config');
+const {Class} = require('sdk/core/heritage');
+const {Cc, Ci: {nsICookie2}} = require('chrome');
+const {COOKIE: {SESSION_ID, HOST, PATH}} = require('../config');
+const {getCookie} = require('../utils/cookie');
+const observer = require('../observer');
 
-function getCookie(key) {
-    const uri = newURI(DOMAIN, null, null);
-    const cookiesString = getCookieString(uri, null);
-    const cookiePairs = querystring.parse(cookiesString, '; ', '=');
+const CookieService = Class({
+    initialize() {
+        // check current auth status
+        this.changeAuthStatus(getCookie(SESSION_ID));
 
-    return cookiePairs[key];
-}
+        this.addListeners();
+    },
+    addListeners() {
+        events.on('cookie-changed', ({data, subject}) => {
+            const {name, host, path} = subject.QueryInterface(nsICookie2);
 
-function addChangeListener(handler) {
-    events.on('cookie-changed', ({data, subject}) => {
-        const {name, host, path} = subject.QueryInterface(nsICookie2);
+            if (name === SESSION_ID && host === HOST && path === PATH) {
+                this.changeAuthStatus(data === 'added');
+            }
+        }, true);
+    },
+    changeAuthStatus(isAuth) {
+        observer.emitEvent(isAuth ? 'login' : 'logout');
+    }
+});
 
-        if (name === SESSION_ID && host === HOST && path === PATH) {
-            handler(data === 'added');
-        }
-    }, true);
-}
-
-module.exports = {
-    getCookie,
-    addChangeListener
-};
+module.exports = new CookieService();
