@@ -31,14 +31,7 @@ function onMessage({data}) {
     const {operation, message} = jsonData;
 
     if (operation !== 'ping') {
-        if (operation === 'insert') {
-            emitEvent('newMessage', message);
-        }
-        else if (message) {
-            const {new_messages: unreadCount} = message;
-
-            unreadCount ? emitEvent('updateUnreadCount', unreadCount) : emitEvent('updateStatus');
-        }
+        emitEvent('updateUnreadCount', message);
     }
 }
 
