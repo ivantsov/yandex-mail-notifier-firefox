@@ -1,0 +1,7 @@
+/node_modules
+/src/panel
+.git
+.idea
+.gitignore
+.eslintrc
+webpack.config.*
