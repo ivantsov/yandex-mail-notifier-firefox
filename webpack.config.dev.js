@@ -11,7 +11,17 @@ module.exports = {
         loaders: [{
             test: /\.js$/,
             loader: 'babel',
-            exclude: /node_modules/
+            exclude: /node_modules/,
+            query: {
+                presets: [
+                    'react'
+                ],
+                plugins: [
+                    'syntax-object-rest-spread',
+                    'transform-object-rest-spread',
+                    'transform-es2015-modules-commonjs'
+                ]
+            }
         }]
     }
 };

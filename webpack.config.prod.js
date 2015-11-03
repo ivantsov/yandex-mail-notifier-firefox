@@ -7,11 +7,12 @@ module.exports = Object.assign({}, config, {
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('production')
-        }),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            }
         })
+        //new webpack.optimize.UglifyJsPlugin({
+        //    mangle: false,
+        //    compress: {
+        //        warnings: false
+        //    }
+        //})
     ]
 });
