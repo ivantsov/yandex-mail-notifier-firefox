@@ -1,20 +1,20 @@
+const {MESSAGES_URL, MESSAGE_ACTION_URL} = require('../config');
 const {get, post} = require('./utils/request');
 const parser = require('./utils/parser');
 
 function loadMessages() {
-    return get('mailbox_list?first=0&last=100&extra_cond=only_new&goto=all').then(parser);
+    return get(MESSAGES_URL).then(parser);
 }
 
 function updateMessageStatus({oper, id}) {
     return post({
-        url: 'mailbox_oper',
+        url: MESSAGE_ACTION_URL,
         params: {
             ids: [id],
             oper
         }
     }).then(res => {
-        const errorTag = res.querySelector('error');
-        const error = errorTag ? errorTag[0] : null;
+        const error = res.querySelector('error');
 
         if (error) {
             throw new Error(error);
