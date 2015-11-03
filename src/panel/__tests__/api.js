@@ -5,20 +5,20 @@ const {loadMessages, updateMessageStatus} = require('../api');
 const {get, post} = require('../utils/request');
 const parser = require('../utils/parser');
 
-const GET_EXPECTED = 'somedata';
-
-get.mockImpl(url => Promise.resolve(GET_EXPECTED));
-
 describe('api', () => {
     it('defined', () => {
-         expect(loadMessages).toBeDefined();
-         expect(updateMessageStatus).toBeDefined();
+        expect(loadMessages).toBeDefined();
+        expect(updateMessageStatus).toBeDefined();
     });
 
     pit('load messages', () => {
+        const getExpected = 'somedata';
+
+        get.mockImpl(() => Promise.resolve(getExpected));
+
         return loadMessages().then(() => {
             expect(get).toBeCalledWith(MESSAGES_URL);
-            expect(parser).toBeCalledWith(GET_EXPECTED);
+            expect(parser).toBeCalledWith(getExpected);
         });
     });
 
@@ -28,7 +28,7 @@ describe('api', () => {
             oper: 'delete'
         };
 
-        afterEach(() => post.mockClear());
+        afterEach(post.mockClear);
 
         pit('with error', () => {
             post.mockImpl(() => {

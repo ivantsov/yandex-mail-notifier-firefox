@@ -9,7 +9,7 @@ module.exports = {
     API_URL,
     UNREAD_MESSAGE_URL: `${API_URL}/v2/bar/counters?silent`,
     MESSAGES_URL: 'mailbox_list?first=0&last=100&extra_cond=only_new&goto=all',
-    MESSAGE_ACTION_URL:'mailbox_oper',
+    MESSAGE_ACTION_URL: 'mailbox_oper',
     IGNORED_FOLDERS: ['spam', 'archive', 'trash', 'sent', 'outbox', 'draft'],
     RECONNECT_INTERVAL: 60 * 1000, // 1 min
     ERROR_NOTIFICATION_TIMEOUT: 3 * 1000, // 3 sec
