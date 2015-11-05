@@ -22,7 +22,7 @@ function request({url, type}) {
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
 
-        xhr.onload = function () { // eslint-disable-line func-names
+        xhr.onload = function () {
             if (this.status >= 200 && this.status < 300) {
                 let result;
 
@@ -44,7 +44,7 @@ function request({url, type}) {
             }
         };
 
-        xhr.onerror = function () { // eslint-disable-line func-names
+        xhr.onerror = function () {
             reject(createError(this));
         };
 

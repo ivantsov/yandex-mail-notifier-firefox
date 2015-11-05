@@ -114,9 +114,10 @@ describe('utils', () => {
 
             it('error', () => {
                 const xml = createElement('doc', [
-                    createElement('mailbox_list'),
-                    createElement('folder_list'),
-                    createElement('error')
+                    createElement('mailbox_list', [
+                        createElement('error')
+                    ]),
+                    createElement('folder_list')
                 ]);
 
                 expect(() => parser(xml)).toThrow();
