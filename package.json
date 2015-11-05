@@ -21,20 +21,14 @@
   "scripts": {
     "lint": "eslint src data/scripts",
     "lint:fix": "eslint --fix src data/scripts",
-    "test": "jest && coveralls < coverage/lcov.info",
+    "test": "jest --coverage && coveralls < coverage/lcov.info",
     "test:watch": "jest --watch",
     "watch": "webpack --config webpack.config.dev.js --watch",
     "build": "webpack --config webpack.config.prod.js"
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
-    "collectCoverage": true,
-    "unmockedModulePathPatterns": [
-      "<rootDir>/node_modules/react",
-      "<rootDir>/node_modules/react-dom",
-      "<rootDir>/node_modules/react-addons-test-utils",
-      "<rootDir>/node_modules/fbjs"
-    ]
+    "unmockedModulePathPatterns": ["/node_modules/"]
   },
   "devDependencies": {
     "babel-core": "^6.0.16",
