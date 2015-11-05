@@ -16,8 +16,7 @@ function parseFolders(folders) {
     return [...folders].map(folder => {
         return {
             id: getText(folder, 'fid'),
-            symbol: getText(folder, 'symbol'),
-            name: getText(folder, 'name').split('|').pop()
+            symbol: getText(folder, 'symbol')
         };
     });
 }
@@ -37,7 +36,6 @@ function parseMessages(messages) {
             from: getText(from, 'name') || getText(from, 'email'),
             firstline: getText(message, 'firstline'),
             date: new Date(message.getAttribute('recv_date')),
-            attach: parseInt(message.getAttribute('att_count'), 10),
             fid: message.getAttribute('fid')
         };
     });
