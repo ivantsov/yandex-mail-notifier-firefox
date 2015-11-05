@@ -3,6 +3,9 @@ const {ERROR_NOTIFICATION_TIMEOUT} = require('../../config');
 const l10n = require('../utils/l10n');
 
 const Notification = React.createClass({
+    propTypes: {
+        id: PropTypes.number.isRequired
+    },
     getInitialState() {
         return {
             isShown: false
@@ -27,9 +30,5 @@ const Notification = React.createClass({
         return <div className={className}>{l10n.text('operationError')}</div>;
     }
 });
-
-Notification.propTypes = {
-    id: PropTypes.number.isRequired
-};
 
 module.exports = Notification;
