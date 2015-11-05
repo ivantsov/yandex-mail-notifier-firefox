@@ -20,6 +20,7 @@ module.exports = {
     ],
     RECONNECT_INTERVAL: 60 * 1000, // 1 min
     ERROR_NOTIFICATION_TIMEOUT: 3 * 1000, // 3 sec
+    NOT_AUTH_NOTIFICATION_INTERVAL: 5 * 60 * 1000, // 5 min
     SOCKET: {
         CREDENTIALS_URL: `${DOMAIN}/neo2/handlers/xiva_sub.jsx`,
         URL: 'wss://xiva-daria.mail.yandex.net/events/websocket/',
