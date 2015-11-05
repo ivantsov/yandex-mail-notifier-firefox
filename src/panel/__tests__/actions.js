@@ -28,7 +28,7 @@ describe('api', () => {
             };
             const promise = Promise.resolve(expected);
 
-            api.loadMessages.mockImpl(() => promise);
+            api.loadMessages.mockReturnValue(promise);
 
             loadMessages()(dispatch);
 
@@ -48,7 +48,7 @@ describe('api', () => {
         pit('error', () => {
             const promise = Promise.reject();
 
-            api.loadMessages.mockImpl(() => promise);
+            api.loadMessages.mockReturnValue(promise);
 
             loadMessages()(dispatch);
 
@@ -70,7 +70,7 @@ describe('api', () => {
             const expected = {id: 1};
             const promise = Promise.resolve();
 
-            api.updateMessageStatus.mockImpl(() => promise);
+            api.updateMessageStatus.mockReturnValue(promise);
 
             updateMessageStatus(expected)(dispatch);
 
@@ -89,7 +89,7 @@ describe('api', () => {
         pit('error', () => {
             const promise = Promise.reject();
 
-            api.updateMessageStatus.mockImpl(() => promise);
+            api.updateMessageStatus.mockReturnValue(promise);
 
             updateMessageStatus()(dispatch);
 

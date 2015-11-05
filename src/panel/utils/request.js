@@ -33,7 +33,7 @@ function request({type, url, params}) {
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
 
-        xhr.onload = function () { // eslint-disable-line func-names
+        xhr.onload = function () {
             if (this.status >= 200 && this.status < 300) {
                 resolve(this.responseXML);
             }
@@ -43,7 +43,7 @@ function request({type, url, params}) {
             }
         };
 
-        xhr.onerror = function () { // eslint-disable-line func-names
+        xhr.onerror = function () {
             logError(this.statusText, this.response);
             reject();
         };
