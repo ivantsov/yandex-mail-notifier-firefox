@@ -21,8 +21,9 @@ const CookieService = Class({
                     this.changeAuthStatus(data === 'added');
                 }
             }
-            catch(err) {
-                console.error(err);
+            catch (err) {
+                // silent exception
+                return;
             }
         }, true);
     },
