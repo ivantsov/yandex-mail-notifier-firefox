@@ -46,7 +46,7 @@ function disableUnread() {
 }
 
 function enableNotAuth({user}) {
-	if (prefs.prefs.notAuthNotification && user) {
+	if (prefs.prefs.notAuthNotification && !user) {
 		disableNotAuth();
 
 		notAuthTimer = setInterval(() => {
