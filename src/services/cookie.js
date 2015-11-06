@@ -14,15 +14,20 @@ const CookieService = Class({
     },
     addListeners() {
         events.on('cookie-changed', ({data, subject}) => {
-            const {name, host, path} = subject.QueryInterface(nsICookie2);
+            try {
+                const {name, host, path} = subject.QueryInterface(nsICookie2);
 
-            if (name === SESSION_ID && host === HOST && path === PATH) {
-                this.changeAuthStatus(data === 'added');
+                if (name === SESSION_ID && host === HOST && path === PATH) {
+                    this.changeAuthStatus(data === 'added');
+                }
+            }
+            catch(err) {
+                console.error(err);
             }
         }, true);
     },
     changeAuthStatus(isAuth) {
-        observer.emitEvent(isAuth ? 'login' : 'logout');
+        isAuth ? observer.emitEvent('login') : observer.emitEvent('logout', {user: null});
     }
 });
 
