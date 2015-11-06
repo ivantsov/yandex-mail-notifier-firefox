@@ -23,8 +23,8 @@
     "lint:fix": "eslint --fix src data/scripts",
     "test": "jest --coverage && coveralls < coverage/lcov.info",
     "test:watch": "jest --watch",
-    "watch": "webpack --config webpack.config.dev.js --watch",
-    "build": "webpack --config webpack.config.prod.js"
+    "build": "webpack --config webpack.config.prod.js",
+    "build:watch": "webpack --config webpack.config.dev.js --watch"
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
@@ -76,10 +76,10 @@
       "name": "unreadMessagesNotification",
       "type": "menulist",
       "title": "Remind about unread emails via desktop notification",
-      "value": false,
+      "value": 300000,
       "options": [
         {
-          "value": false,
+          "value": 0,
           "label": "never"
         },
         {
