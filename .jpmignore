@@ -1,7 +1,11 @@
 /node_modules
+/coverage
+/test
 /src/panel
 .git
 .idea
 .gitignore
 .eslintrc
+.travis.yml
+README.md
 webpack.config.*
