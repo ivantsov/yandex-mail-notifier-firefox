@@ -23,7 +23,7 @@
     "lint:fix": "eslint --fix src data/scripts",
     "test": "jest --coverage && coveralls < coverage/lcov.info",
     "test:watch": "jest --watch",
-    "build": "webpack --config webpack.config.prod.js",
+    "build": "webpack --config webpack.config.prod.js && jpm xpi",
     "build:watch": "webpack --config webpack.config.dev.js --watch"
   },
   "jest": {
@@ -100,28 +100,35 @@
       "name": "unreadMessagesSound",
       "type": "bool",
       "title": "Remind about unread emails via sound notification",
-      "desktop": "Plays according to reminder interval. If that set to \"never\" this won't play",
+      "description": "Plays according to reminder interval. If that set to \"never\", the sound won't play",
       "value": false
     },
     {
       "name": "notAuthNotification",
-      "type": "bool",
-      "title": "Show desktop notification if you're not logged in",
-      "description": "Shows every 5 min",
-      "value": true
-    },
-    {
-      "name": "notAuthSound",
-      "type": "bool",
-      "title": "Play sound notification if you're not logged in",
-      "description": "Plays every 5 min",
-      "value": false
+      "type": "menulist",
+      "title": "Notify if you're not logged in",
+      "description": "Every 5 min",
+      "value": 1,
+      "options": [
+        {
+          "value": 0,
+          "label": "off"
+        },
+        {
+          "value": 1,
+          "label": "only desktop notification"
+        },
+        {
+          "value": 2,
+          "label": "desktop and sound notification"
+        }
+      ]
     },
     {
       "name": "showPanel",
       "type": "bool",
       "title": "Show panel with unread emails",
-      "description": "If this flag isn't set button will open Yandex.Mail",
+      "description": "If this flag isn't set, button will open Yandex.Mail",
       "value": true
     }
   ]
