@@ -8,6 +8,8 @@ Yandex.Mail notifier
 
 Tunable Firefox extension for Yandex.Mail with lots of features.
 
+![Screenshot](https://github.com/ivantsov/yandex-mail-notifier/raw/master/screenshots/panel-hover.png "Screenshot")
+
 The addon is build on [JPM](https://developer.mozilla.org/en-US/Add-ons/SDK/Tools/jpm).
 
 Addon page: [https://addons.mozilla.org/ru/firefox/addon/yandex-mail-notifier](https://addons.mozilla.org/ru/firefox/addon/yandex-mail-notifier)

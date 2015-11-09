@@ -2,6 +2,7 @@
 /coverage
 /test
 /src/panel
+/screenshots
 .git
 .idea
 .gitignore
