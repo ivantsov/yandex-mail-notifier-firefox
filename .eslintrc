@@ -1,5 +1,8 @@
 {
     "extends": "airbnb",
+	"ecmaFeatures": {
+		"experimentalObjectRestSpread": true
+	},
     "rules": {
         "indent": [2, 4, {"SwitchCase": 1}],
         "comma-dangle": [2, "never"],
@@ -21,7 +24,6 @@
             "uninitialized": "always"
         }],
         "func-names": 0,
-        "id-length": 0,
         "react/sort-comp": [2, {
             "order": [
                 "lifecycle",

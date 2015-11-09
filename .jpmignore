@@ -9,3 +9,4 @@
 .travis.yml
 README.md
 webpack.config.*
+*.log
