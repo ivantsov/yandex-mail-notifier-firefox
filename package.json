@@ -3,6 +3,7 @@
   "name": "yandex-mail-notifier",
   "version": "3.0.0",
   "description": "Notifier for Yandex.Mail with lots of features",
+  "icon": "resource://yandex-mail-notifier/data/icons/addon-logo.png",
   "main": "index.js",
   "author": {
     "name": "Alexander Ivantsov",
