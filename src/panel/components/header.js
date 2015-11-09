@@ -11,7 +11,9 @@ const Header = ({user, unreadCount, loading, onReload}) => {
                 </svg>
             </a>
             <div>
-                {user} (<strong>{unreadCount}</strong>)
+                <a href="#" onClick={() => openTab()}>
+                    {user} (<strong>{unreadCount}</strong>)
+                </a>
                 <button className="header__reload" disabled={loading} onClick={onReload}>
                     <svg xmlns="http://www.w3.org/2000/svg" className="header__icon-reload">
                         <use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="#reload"></use>
