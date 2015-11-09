@@ -24,12 +24,14 @@ const SocketService = Class({
 
         this.worker.port.on('updateUnreadCount', ({
             operation,
-            new_messages: unreadCount,
+            new_messages,
             mid: id,
             hdr_from: from,
             hdr_subject: subject,
             firstline
         }) => {
+            const unreadCount = parseInt(new_messages, 10);
+
             if (operation === 'insert') {
                 const nameMatch = from.match(/^"(.+)"/);
                 const emailMatch = from.match(/<(.+)>$/);
@@ -59,12 +61,12 @@ const SocketService = Class({
             getUserInfo(),
             getUnreadCount(),
             getSocketCredentials(uid)
-        ]).then(([user, unreadCound, credentials]) => {
+        ]).then(([user, unreadCount, credentials]) => {
             setTimeout(this.reconnect, SOCKET.RECONNECT_INTERVAL); // eslint-disable-line no-use-before-define
 
             this.worker.port.emit('connect', credentials);
 
-            observer.emitEvent('socket:success', {user, unreadCound});
+            observer.emitEvent('socket:success', {user, unreadCount});
         }).catch(() => {
             setTimeout(this.connect, RECONNECT_INTERVAL);
 
