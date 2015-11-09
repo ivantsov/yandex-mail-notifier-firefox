@@ -50,14 +50,13 @@ const SocketService = Class({
 
         Promise.all([
             getUserInfo(),
-            getUnreadCount(),
             getSocketCredentials(uid)
-        ]).then(([user, unreadCount, credentials]) => {
+        ]).then(([user, credentials]) => {
             setTimeout(this.reconnect, SOCKET.RECONNECT_INTERVAL); // eslint-disable-line no-use-before-define
 
             this.worker.port.emit('connect', credentials);
 
-            observer.emitEvent('socket:success', {user, unreadCount});
+            observer.emitEvent('socket:success', {user});
         }).catch(() => {
             setTimeout(this.connect, RECONNECT_INTERVAL);
 

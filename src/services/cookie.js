@@ -2,23 +2,23 @@ const events = require('sdk/system/events');
 const {Class} = require('sdk/core/heritage');
 const {Ci: {nsICookie2}} = require('chrome');
 const {COOKIE: {SESSION_ID, HOST, PATH}} = require('../config');
-const {getCookie} = require('../utils/cookie');
+const {getUnreadCount} = require('../utils/api');
 const observer = require('../observer');
 
 const CookieService = Class({
     initialize() {
-        // check current auth status
-        this.changeAuthStatus(getCookie(SESSION_ID));
-
         this.addListeners();
+
+        // check current auth status
+        this.changeAuthStatus();
     },
     addListeners() {
-        events.on('cookie-changed', ({data, subject}) => {
+        events.on('cookie-changed', ({subject}) => {
             try {
                 const {name, host, path} = subject.QueryInterface(nsICookie2);
 
                 if (name === SESSION_ID && host === HOST && path === PATH) {
-                    this.changeAuthStatus(data === 'added');
+                    this.changeAuthStatus();
                 }
             }
             catch (err) {
@@ -27,8 +27,10 @@ const CookieService = Class({
             }
         }, true);
     },
-    changeAuthStatus(isAuth) {
-        isAuth ? observer.emitEvent('login') : observer.emitEvent('logout', {user: null});
+    changeAuthStatus() {
+        getUnreadCount()
+            .then(unreadCount => observer.emitEvent('login', {unreadCount}))
+            .catch(() => observer.emitEvent('logout', {user: null}));
     }
 });
 
