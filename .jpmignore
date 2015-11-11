@@ -3,6 +3,8 @@
 /test
 /src/panel
 /screenshots
+*.log
+*.xpi
 .git
 .idea
 .gitignore
@@ -10,4 +12,3 @@
 .travis.yml
 README.md
 webpack.config.*
-*.log
