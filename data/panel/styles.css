@@ -28,6 +28,14 @@ a:focus {
 	display: none;
 }
 
+.center {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: hidden;
+}
+
 .container {
     position: fixed;
     top: 0;
@@ -84,16 +92,11 @@ a:focus {
 
 .content {
     height: 100%;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .content_empty {
 	font-size: 28px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 100%;
-	overflow-y: hidden;
 }
 
 .email {
@@ -169,11 +172,6 @@ a:focus {
 }
 
 .spinner {
-    font-size: 10px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     height: 40px;
 }
 
