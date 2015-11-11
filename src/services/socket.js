@@ -17,10 +17,10 @@ const SocketService = Class({
     },
     addListeners() {
         // UID might not be set immediately - run timeout
-        observer.addListener('login', () => setTimeout(() => this.connect(), COOKIE.TIMEOUT));
-        observer.addListener('logout', () => this.disconnect());
+        observer.addListener('login', () => setTimeout(this.connect.bind(this), COOKIE.TIMEOUT));
+        observer.addListener('logout', this.disconnect.bind(this));
 
-        this.worker.port.on('reconnect', this.reconnect);
+        this.worker.port.on('reconnect', this.reconnect.bind(this));
 
         this.worker.port.on('updateUnreadCount', ({
             operation,
@@ -46,7 +46,7 @@ const SocketService = Class({
                     }
                 });
             }
-            else if (unreadCount !== undefined) {
+            else if (!Number.isNaN(unreadCount)) {
                 observer.emitEvent('unreadCountChanged', {unreadCount});
             }
             else {
@@ -62,13 +62,13 @@ const SocketService = Class({
             getUnreadCount(),
             getSocketCredentials(uid)
         ]).then(([user, unreadCount, credentials]) => {
-            setTimeout(this.reconnect, SOCKET.RECONNECT_INTERVAL); // eslint-disable-line no-use-before-define
+            setTimeout(this.reconnect.bind(this), SOCKET.RECONNECT_INTERVAL); // eslint-disable-line no-use-before-define
 
             this.worker.port.emit('connect', credentials);
 
             observer.emitEvent('socket:success', {user, unreadCount});
         }).catch(() => {
-            setTimeout(this.connect, RECONNECT_INTERVAL);
+            setTimeout(this.connect.bind(this), RECONNECT_INTERVAL);
 
             observer.emitEvent('socket:error');
         });
