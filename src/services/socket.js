@@ -70,7 +70,7 @@ const SocketService = Class({
         }).catch(() => {
             setTimeout(this.connect.bind(this), RECONNECT_INTERVAL);
 
-            observer.emitEvent('socket:error');
+            observer.emitEvent('socket:error', {user: null});
         });
     },
     disconnect() {
