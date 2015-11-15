@@ -9,7 +9,7 @@ const List = ({items, loading, error, onUpdateMessageStatus}) => {
     }
 
     if (error || !items.length) {
-        return <div className="content content_empty">{l10n.text(error ? 'loadingError' : 'emptyList')}</div>;
+        return <div className="center content_empty">{l10n.text(error ? 'loadingError' : 'emptyList')}</div>;
     }
 
     const messages = items.map(item => <Item key={item.id} onUpdateMessageStatus={onUpdateMessageStatus} {...item}/>);
