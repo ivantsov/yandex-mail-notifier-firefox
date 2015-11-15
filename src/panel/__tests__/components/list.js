@@ -77,16 +77,16 @@ describe('List', () => {
             firstline: 'content456',
             date: new Date()
         }];
-        const {type, props} = getRenderOutput({
+        const {type: componentType, props: {children}} = getRenderOutput({
             ...baseProps,
             loading: false,
             items
         });
 
-        expect(type).toBe('div');
-        expect(props.children.length).toBe(2);
+        expect(componentType).toBe('div');
+        expect(children.length).toBe(2);
 
-        props.children.forEach(({type, key, props}, index) => {
+        children.forEach(({type, key, props}, index) => {
             expect(type).toBe(Item);
             expect(key).toBe(items[index].id);
             expect(props.id).toBe(items[index].id);

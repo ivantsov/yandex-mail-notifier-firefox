@@ -34,11 +34,11 @@ describe('HoverMenu', () => {
     });
 
     it('render', () => {
-        const {type, props: componentProps} = getRenderOutput(baseProps);
+        const {type: componentType, props: {children}} = getRenderOutput(baseProps);
 
-        expect(type).toBe('div');
+        expect(componentType).toBe('div');
 
-        componentProps.children.forEach(({type, key, props}, index) => {
+        children.forEach(({type, key, props}, index) => {
             const [icon, text] = props.children;
 
             expect(type).toBe('div');

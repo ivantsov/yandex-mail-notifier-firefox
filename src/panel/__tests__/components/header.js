@@ -52,7 +52,7 @@ describe('Header', () => {
         });
 
         it('loading', () => {
-            const {type, props: {children}} = getRenderOutput({
+            const {props: {children}} = getRenderOutput({
                 ...baseProps,
                 loading: true
             });
