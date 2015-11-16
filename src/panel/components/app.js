@@ -53,4 +53,7 @@ function mapStateToProps(state) {
     return state;
 }
 
-module.exports = connect(mapStateToProps)(App);
+module.exports = {
+    Component: App,
+    ConnectedComponent: connect(mapStateToProps)(App)
+};

@@ -1,7 +1,7 @@
 const React = require('react');
 const {render, unmountComponentAtNode} = require('react-dom');
 const {Provider} = require('react-redux');
-const App = require('./components/app');
+const {ConnectedComponent: App} = require('./components/app');
 const configureStore = require('./store');
 
 const mountNode = document.getElementById('app');
