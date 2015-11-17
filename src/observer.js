@@ -1,33 +1,34 @@
 const {EventTarget} = require('sdk/event/target');
 const {emit} = require('sdk/event/core');
-const {Class} = require('sdk/core/heritage');
 
-const Observer = Class({
-    initialize() {
-        this.observer = EventTarget();
+const observer = EventTarget();
+let state = {
+    user: null,
+    unreadCount: 0,
+    newMessage: null
+};
 
-        this.state = {
-            user: null,
-            unreadCount: 0,
-            newMessage: null
-        };
-    },
-    addListener(eventName, handler) {
-        if (Array.isArray(eventName)) {
-            eventName.forEach(name => this.observer.on(name, handler));
-        }
-        else {
-            this.observer.on(eventName, handler);
-        }
-    },
-    emitEvent(eventName, params) {
-        Object.assign(this.state, params);
-
-        emit(this.observer, eventName, this.state);
-    },
-    getState() {
-        return this.state;
+function addListener(eventName, handler) {
+    if (Array.isArray(eventName)) {
+        eventName.forEach(name => observer.on(name, handler));
     }
-});
+    else {
+        observer.on(eventName, handler);
+    }
+}
 
-module.exports = new Observer();
+function emitEvent(eventName, params) {
+    state = Object.assign({}, state, params);
+
+    emit(observer, eventName, state);
+}
+
+function getState() {
+    return state;
+}
+
+module.exports = {
+    addListener,
+    emitEvent,
+    getState
+};
