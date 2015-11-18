@@ -49,13 +49,16 @@ a:focus {
     background-color: white;
     display: flex;
     justify-content: space-between;
-    padding: 15px;
+    align-items: center;
+    padding: 9px 15px;
     border-bottom: 3px solid #f1cb30;
 }
 
+.header__item {
+    display: inline-flex;
+}
+
 .header__icon-mail {
-    position: absolute;
-    top: 9px;
     width: 54px;
     height: 30px;
     fill: #859dc6;
@@ -86,7 +89,7 @@ a:focus {
     width: 18px;
     height: 18px;
     vertical-align: middle;
-    margin-right: 5px;
+    margin-right: 8px;
     fill: #859dc6;
 }
 

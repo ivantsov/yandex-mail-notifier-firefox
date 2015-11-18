@@ -5,12 +5,12 @@ const {openTab} = require('../utils/tab');
 const Header = ({user, unreadCount, loading, onReload}) => {
     return (
         <div className="header">
-            <a href="#" onClick={() => openTab()}>
+            <a href="#" className="header__item" onClick={() => openTab()}>
                 <svg xmlns="http://www.w3.org/2000/svg" className="header__icon-mail">
                     <use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="#logo"></use>
                 </svg>
             </a>
-            <div>
+            <div className="header__item">
                 <a href="#" onClick={() => openTab()}>
                     {user} (<strong>{unreadCount}</strong>)
                 </a>
@@ -20,7 +20,7 @@ const Header = ({user, unreadCount, loading, onReload}) => {
                     </svg>
                 </button>
             </div>
-            <a href="#" onClick={() => openTab('#compose')}>
+            <a href="#" className="header__item" onClick={() => openTab('#compose')}>
                 <svg xmlns="http://www.w3.org/2000/svg" className="header__icon-compose">
                     <use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="#compose"></use>
                 </svg> {l10n.text('compose')}
