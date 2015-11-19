@@ -30,7 +30,13 @@
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
     "unmockedModulePathPatterns": [
-      "/node_modules/"
+      "<rootDir>/node_modules/react",
+      "<rootDir>/node_modules/react-dom",
+      "<rootDir>/node_modules/react-addons-test-utils",
+      "<rootDir>/node_modules/fbjs"
+    ],
+    "modulePathIgnorePatterns": [
+      "<rootDir>/node_modules/"
     ]
   },
   "devDependencies": {
@@ -38,7 +44,11 @@
     "babel-jest": "^6.0.1",
     "babel-loader": "^6.0.1",
     "babel-plugin-syntax-object-rest-spread": "^6.0.14",
+    "babel-plugin-transform-es2015-destructuring": "^6.1.18",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.1.3",
+    "babel-plugin-transform-es2015-parameters": "^6.1.18",
+    "babel-plugin-transform-es2015-shorthand-properties": "^6.1.18",
+    "babel-plugin-transform-es2015-spread": "^6.1.18",
     "babel-plugin-transform-object-rest-spread": "^6.0.14",
     "babel-preset-react": "^6.1.2",
     "coveralls": "^2.11.4",
