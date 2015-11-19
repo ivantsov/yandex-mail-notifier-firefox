@@ -24,7 +24,7 @@ describe('utils', () => {
             });
 
             it('exist key', () => {
-				const key = 'month1';
+                const key = 'month1';
 
                 expect(l10n.text(key)).toBe(months[key]);
             });

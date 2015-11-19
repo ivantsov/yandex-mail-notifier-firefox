@@ -103,24 +103,25 @@ describe('utils', () => {
             it('messages', () => {
                 const xml = createElement('doc', [createElement('folder_list')]);
 
-                expect(() => parser(xml)).toThrow();
+                expect(() => parser(xml)).toThrowError('Bad response format in messages xml');
             });
 
             it('folders', () => {
                 const xml = createElement('doc', [createElement('mailbox_list')]);
 
-                expect(() => parser(xml)).toThrow();
+                expect(() => parser(xml)).toThrowError('Bad response format in messages xml');
             });
 
             it('error', () => {
+                const errorCode = 500;
                 const xml = createElement('doc', [
                     createElement('mailbox_list', [
-                        createElement('error')
+                        createElement('error', [], {code: errorCode})
                     ]),
                     createElement('folder_list')
                 ]);
 
-                expect(() => parser(xml)).toThrow();
+                expect(() => parser(xml)).toThrowError(`Error occurred while parsing messages xml ${errorCode}`);
             });
         });
 

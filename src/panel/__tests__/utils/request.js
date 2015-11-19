@@ -65,7 +65,7 @@ describe('utils', () => {
 
                 return promise
                     .then(res => expect(res).toEqual(expected.response))
-                    .catch(() => expect(false).toBeTruthy());
+                    .catch(fail);
             });
 
             describe('error', () => {
@@ -81,7 +81,7 @@ describe('utils', () => {
                     onload();
 
                     return promise
-                        .then(() => expect(false).toBeTruthy())
+                        .then(fail)
                         .catch(() => expect(true).toBeTruthy());
                 });
 
@@ -97,7 +97,7 @@ describe('utils', () => {
                     onerror();
 
                     return promise
-                        .then(() => expect(false).toBeTruthy())
+                        .then(fail)
                         .catch(() => expect(true).toBeTruthy());
                 });
             });
@@ -125,7 +125,7 @@ describe('utils', () => {
 
                 return promise
                     .then(res => expect(res).toEqual(expected.response))
-                    .catch(() => expect(false).toBeTruthy());
+                    .catch(fail);
             });
 
             describe('error', () => {
@@ -144,7 +144,7 @@ describe('utils', () => {
                     onload();
 
                     return promise
-                        .then(() => expect(false).toBeTruthy())
+                        .then(fail)
                         .catch(() => expect(true).toBeTruthy());
                 });
 
@@ -163,7 +163,7 @@ describe('utils', () => {
                     onerror();
 
                     return promise
-                        .then(() => expect(false).toBeTruthy())
+                        .then(fail)
                         .catch(() => expect(true).toBeTruthy());
                 });
             });

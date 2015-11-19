@@ -28,6 +28,7 @@
     "build:watch": "webpack --config webpack.config.dev.js --watch"
   },
   "jest": {
+    "testRunner": "<rootDir>/node_modules/jest-cli/src/testRunners/jasmine/jasmine2",
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
     "unmockedModulePathPatterns": [
       "<rootDir>/node_modules/react",
@@ -55,7 +56,7 @@
     "eslint": "^1.9.0",
     "eslint-config-airbnb": "^1.0.0",
     "eslint-plugin-react": "^3.8.0",
-    "jest-cli": "^0.7.1",
+    "jest-cli": "^0.8.0",
     "react-addons-test-utils": "^0.14.2",
     "webpack": "^1.12.3"
   },
