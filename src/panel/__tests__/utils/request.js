@@ -39,21 +39,37 @@ function createXHRmock(params) {
     window.XMLHttpRequest = jest.genMockFn().mockImpl(xhrMockClass);
 }
 
-describe('utils', () => {
-    describe('request', () => {
-        it('defined', () => {
-            expect(get).toBeDefined();
-            expect(post).toBeDefined();
+describe('utils/request', () => {
+    it('defined', () => {
+        expect(get).toBeDefined();
+        expect(post).toBeDefined();
+    });
+
+    describe('get', () => {
+        const expectedType = 'GET';
+
+        pit('success', () => {
+            createXHRmock({
+                status: 200,
+                responseXML: expected.response
+            });
+
+            const promise = get(expected.url);
+
+            expect(open).toBeCalledWith(expectedType, expected.fullUrl, true);
+            expect(setRequestHeader).not.toBeCalled();
+            expect(send).toBeCalledWith('');
+
+            onload();
+
+            return promise
+                .then(res => expect(res).toEqual(expected.response))
+                .catch(fail);
         });
 
-        describe('get', () => {
-            const expectedType = 'GET';
-
-            pit('success', () => {
-                createXHRmock({
-                    status: 200,
-                    responseXML: expected.response
-                });
+        describe('error', () => {
+            pit('by code', () => {
+                createXHRmock({status: 500});
 
                 const promise = get(expected.url);
 
@@ -64,53 +80,56 @@ describe('utils', () => {
                 onload();
 
                 return promise
-                    .then(res => expect(res).toEqual(expected.response))
-                    .catch(fail);
+                    .then(fail)
+                    .catch(() => expect(true).toBeTruthy());
             });
 
-            describe('error', () => {
-                pit('by code', () => {
-                    createXHRmock({status: 500});
+            pit('by network', () => {
+                createXHRmock();
 
-                    const promise = get(expected.url);
+                const promise = get(expected.url);
 
-                    expect(open).toBeCalledWith(expectedType, expected.fullUrl, true);
-                    expect(setRequestHeader).not.toBeCalled();
-                    expect(send).toBeCalledWith('');
+                expect(open).toBeCalledWith(expectedType, expected.fullUrl, true);
+                expect(setRequestHeader).not.toBeCalled();
+                expect(send).toBeCalledWith('');
 
-                    onload();
+                onerror();
 
-                    return promise
-                        .then(fail)
-                        .catch(() => expect(true).toBeTruthy());
-                });
-
-                pit('by network', () => {
-                    createXHRmock();
-
-                    const promise = get(expected.url);
-
-                    expect(open).toBeCalledWith(expectedType, expected.fullUrl, true);
-                    expect(setRequestHeader).not.toBeCalled();
-                    expect(send).toBeCalledWith('');
-
-                    onerror();
-
-                    return promise
-                        .then(fail)
-                        .catch(() => expect(true).toBeTruthy());
-                });
+                return promise
+                    .then(fail)
+                    .catch(() => expect(true).toBeTruthy());
             });
         });
+    });
 
-        describe('post', () => {
-            const expectedType = 'POST';
+    describe('post', () => {
+        const expectedType = 'POST';
 
-            pit('success', () => {
-                createXHRmock({
-                    status: 200,
-                    responseXML: expected.response
-                });
+        pit('success', () => {
+            createXHRmock({
+                status: 200,
+                responseXML: expected.response
+            });
+
+            const promise = post({
+                url: expected.url,
+                params: expected.params
+            });
+
+            expect(open).toBeCalledWith(expectedType, expected.fullUrl, true);
+            expect(setRequestHeader).toBeCalled();
+            expect(send).toBeCalledWith('param=123&arr=1&arr=2');
+
+            onload();
+
+            return promise
+                .then(res => expect(res).toEqual(expected.response))
+                .catch(fail);
+        });
+
+        describe('error', () => {
+            pit('by code', () => {
+                createXHRmock({status: 500});
 
                 const promise = post({
                     url: expected.url,
@@ -124,48 +143,27 @@ describe('utils', () => {
                 onload();
 
                 return promise
-                    .then(res => expect(res).toEqual(expected.response))
-                    .catch(fail);
+                    .then(fail)
+                    .catch(() => expect(true).toBeTruthy());
             });
 
-            describe('error', () => {
-                pit('by code', () => {
-                    createXHRmock({status: 500});
+            pit('by network', () => {
+                createXHRmock();
 
-                    const promise = post({
-                        url: expected.url,
-                        params: expected.params
-                    });
-
-                    expect(open).toBeCalledWith(expectedType, expected.fullUrl, true);
-                    expect(setRequestHeader).toBeCalled();
-                    expect(send).toBeCalledWith('param=123&arr=1&arr=2');
-
-                    onload();
-
-                    return promise
-                        .then(fail)
-                        .catch(() => expect(true).toBeTruthy());
+                const promise = post({
+                    url: expected.url,
+                    params: expected.params
                 });
 
-                pit('by network', () => {
-                    createXHRmock();
+                expect(open).toBeCalledWith(expectedType, expected.fullUrl, true);
+                expect(setRequestHeader).toBeCalled();
+                expect(send).toBeCalledWith('param=123&arr=1&arr=2');
 
-                    const promise = post({
-                        url: expected.url,
-                        params: expected.params
-                    });
+                onerror();
 
-                    expect(open).toBeCalledWith(expectedType, expected.fullUrl, true);
-                    expect(setRequestHeader).toBeCalled();
-                    expect(send).toBeCalledWith('param=123&arr=1&arr=2');
-
-                    onerror();
-
-                    return promise
-                        .then(fail)
-                        .catch(() => expect(true).toBeTruthy());
-                });
+                return promise
+                    .then(fail)
+                    .catch(() => expect(true).toBeTruthy());
             });
         });
     });

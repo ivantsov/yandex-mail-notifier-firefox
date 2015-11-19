@@ -93,114 +93,112 @@ function getFixtures() {
     };
 }
 
-describe('utils', () => {
-    describe('parser', () => {
-        it('defined', () => {
-            expect(parser).toBeDefined();
+describe('utils/parser', () => {
+    it('defined', () => {
+        expect(parser).toBeDefined();
+    });
+
+    describe('bad xml', () => {
+        it('messages', () => {
+            const xml = createElement('doc', [createElement('folder_list')]);
+
+            expect(() => parser(xml)).toThrowError('Bad response format in messages xml');
         });
 
-        describe('bad xml', () => {
-            it('messages', () => {
-                const xml = createElement('doc', [createElement('folder_list')]);
+        it('folders', () => {
+            const xml = createElement('doc', [createElement('mailbox_list')]);
 
-                expect(() => parser(xml)).toThrowError('Bad response format in messages xml');
-            });
+            expect(() => parser(xml)).toThrowError('Bad response format in messages xml');
+        });
 
-            it('folders', () => {
-                const xml = createElement('doc', [createElement('mailbox_list')]);
+        it('error', () => {
+            const errorCode = 500;
+            const xml = createElement('doc', [
+                createElement('mailbox_list', [
+                    createElement('error', [], {code: errorCode})
+                ]),
+                createElement('folder_list')
+            ]);
 
-                expect(() => parser(xml)).toThrowError('Bad response format in messages xml');
-            });
+            expect(() => parser(xml)).toThrowError(`Error occurred while parsing messages xml ${errorCode}`);
+        });
+    });
 
-            it('error', () => {
-                const errorCode = 500;
-                const xml = createElement('doc', [
-                    createElement('mailbox_list', [
-                        createElement('error', [], {code: errorCode})
-                    ]),
-                    createElement('folder_list')
-                ]);
+    describe('valid xml', () => {
+        it('details and empty messages', () => {
+            const expected = 10;
 
-                expect(() => parser(xml)).toThrowError(`Error occurred while parsing messages xml ${errorCode}`);
+            const xml = createElement('doc', [
+                createElement('mailbox_list', [
+                    createElement('details', [], {msg_count: expected})
+                ]),
+                createElement('folder_list')
+            ]);
+
+            expect(parser(xml)).toEqual({
+                unreadCount: expected,
+                items: []
             });
         });
 
-        describe('valid xml', () => {
-            it('details and empty messages', () => {
-                const expected = 10;
+        it('without filtering folders', () => {
+            const {messages, messageElements} = getFixtures();
 
-                const xml = createElement('doc', [
-                    createElement('mailbox_list', [
-                        createElement('details', [], {msg_count: expected})
-                    ]),
-                    createElement('folder_list')
-                ]);
+            const xml = createElement('doc', [
+                createElement('mailbox_list', [
+                    createElement('details', [], {msg_count: 10}),
+                    ...messageElements
+                ]),
+                createElement('folder_list')
+            ]);
 
-                expect(parser(xml)).toEqual({
-                    unreadCount: expected,
-                    items: []
-                });
+            const {items} = parser(xml);
+
+            expect(items.length).toBe(messageElements.length);
+
+            items.forEach(({id, from, subject, firstline, date, fid}, index) => {
+                let expectedSubject = messages[index].subject;
+
+                if (expectedSubject === 'No subject') {
+                    expectedSubject = '';
+                }
+
+                expect(id).toBe(messages[index].id);
+                expect(from).toBe(messages[index].from.name || messages[index].from.email);
+                expect(subject).toBe(expectedSubject);
+                expect(firstline).toBe(messages[index].firstline);
+                expect(date.toString()).toBe(messages[index].date.toString());
+                expect(fid).toBe(messages[index].fid);
             });
+        });
 
-            it('without filtering folders', () => {
-                const {messages, messageElements} = getFixtures();
+        it('with filtering folders', () => {
+            const {
+                messages,
+                messageElements,
+                folderElements
+            } = getFixtures();
 
-                const xml = createElement('doc', [
-                    createElement('mailbox_list', [
-                        createElement('details', [], {msg_count: 10}),
-                        ...messageElements
-                    ]),
-                    createElement('folder_list')
-                ]);
+            const xml = createElement('doc', [
+                createElement('mailbox_list', [
+                    createElement('details', [], {msg_count: 10}),
+                    ...messageElements
+                ]),
+                createElement('folder_list', folderElements)
+            ]);
 
-                const {items} = parser(xml);
+            const {items} = parser(xml);
+            const expected = messages[1];
+            const result = items[0];
 
-                expect(items.length).toBe(messageElements.length);
+            expect(items.length).toBe(1);
 
-                items.forEach(({id, from, subject, firstline, date, fid}, index) => {
-                    let expectedSubject = messages[index].subject;
-
-                    if (expectedSubject === 'No subject') {
-                        expectedSubject = '';
-                    }
-
-                    expect(id).toBe(messages[index].id);
-                    expect(from).toBe(messages[index].from.name || messages[index].from.email);
-                    expect(subject).toBe(expectedSubject);
-                    expect(firstline).toBe(messages[index].firstline);
-                    expect(date.toString()).toBe(messages[index].date.toString());
-                    expect(fid).toBe(messages[index].fid);
-                });
-            });
-
-            it('with filtering folders', () => {
-                const {
-                    messages,
-                    messageElements,
-                    folderElements
-                } = getFixtures();
-
-                const xml = createElement('doc', [
-                    createElement('mailbox_list', [
-                        createElement('details', [], {msg_count: 10}),
-                        ...messageElements
-                    ]),
-                    createElement('folder_list', folderElements)
-                ]);
-
-                const {items} = parser(xml);
-                const expected = messages[1];
-                const result = items[0];
-
-                expect(items.length).toBe(1);
-
-                expect(result.id).toBe(expected.id);
-                expect(result.from).toBe(expected.from.name);
-                expect(result.subject).toBe('');
-                expect(result.firstline).toBe(expected.firstline);
-                expect(result.date.toString()).toBe(expected.date.toString());
-                expect(result.fid).toBe(expected.fid);
-            });
+            expect(result.id).toBe(expected.id);
+            expect(result.from).toBe(expected.from.name);
+            expect(result.subject).toBe('');
+            expect(result.firstline).toBe(expected.firstline);
+            expect(result.date.toString()).toBe(expected.date.toString());
+            expect(result.fid).toBe(expected.fid);
         });
     });
 });
