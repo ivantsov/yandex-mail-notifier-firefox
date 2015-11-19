@@ -9,6 +9,7 @@ self.options = {
 
 const React = require('react');
 const TestUtils = require('react-addons-test-utils');
+const {loadMessages, updateMessageStatus} = require('../../actions');
 const {Component: App} = require('../../components/app');
 const Notification = require('../../components/notification');
 const Header = require('../../components/header');
@@ -41,6 +42,10 @@ describe('App', () => {
 
         expect(type).toBe('div');
 
+        // componentWillMount
+        expect(baseProps.dispatch.mock.calls.length).toBe(1);
+        expect(loadMessages.mock.calls.length).toBe(1);
+
         expect(notification.type).toBe(Notification);
         expect(notification.props.id).toBe(baseProps.notification);
 
@@ -50,12 +55,18 @@ describe('App', () => {
         expect(header.props.loading).toBe(baseProps.messages.loading);
         expect(header.props.onReload).toEqual(jasmine.any(Function));
 
+        header.props.onReload();
+        expect(baseProps.dispatch.mock.calls.length).toBe(2);
+        expect(loadMessages.mock.calls.length).toBe(2);
+
         expect(list.type).toBe(List);
         expect(list.props.items).toBe(baseProps.messages.items);
         expect(list.props.loading).toBe(baseProps.messages.loading);
         expect(list.props.error).toBe(baseProps.messages.error);
         expect(list.props.onUpdateMessageStatus).toEqual(jasmine.any(Function));
 
-        expect(baseProps.dispatch).toBeCalled();
+        list.props.onUpdateMessageStatus();
+        expect(baseProps.dispatch.mock.calls.length).toBe(3);
+        expect(updateMessageStatus.mock.calls.length).toBe(1);
     });
 });
