@@ -1,4 +1,5 @@
 const {setTimeout, clearTimeout} = require('sdk/timers');
+const {debounce} = require('sdk/lang/functional');
 const {Page} = require('sdk/page-worker');
 const {RECONNECT_INTERVAL, SOCKET, COOKIE} = require('../config');
 const {getCookie} = require('../utils/cookie');
@@ -38,10 +39,10 @@ function disconnect() {
     worker.port.emit('disconnect');
 }
 
-function reconnect() {
+const reconnect = debounce(() => {
     disconnect();
     connect();
-}
+}, 500);
 
 function init() {
     // UID might not be set immediately - run timeout
