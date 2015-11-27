@@ -1,4 +1,5 @@
 const _ = require('sdk/l10n').get;
+const {setTimeout} = require('sdk/timers');
 const {Panel} = require('sdk/panel');
 const {openTab} = require('../utils/tab');
 const observer = require('../observer');
@@ -53,7 +54,8 @@ panel.port.on('openTab', (url) => {
 });
 
 function showPanel(position) {
-    panel.show({position});
+    // hack - https://github.com/ivantsov/yandex-mail-notifier/issues/2
+    setTimeout(() => panel.show({position}), 300);
 }
 
 module.exports.showPanel = showPanel;
