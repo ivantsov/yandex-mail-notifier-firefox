@@ -2,6 +2,7 @@ const {EventTarget} = require('sdk/event/target');
 const {emit} = require('sdk/event/core');
 
 const observer = EventTarget();
+
 let state = {
     user: null,
     unreadCount: 0,

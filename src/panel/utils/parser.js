@@ -52,7 +52,7 @@ function parse(xml) {
     const error = messages.querySelector('error');
 
     if (error) {
-        throw new Error(`Error occurred while parsing messages xml ${error.getAttribute('code')}`);
+        throw new Error(`Messages xml has error field with code: ${error.getAttribute('code')}`);
     }
 
     const details = messages.querySelector('details');
