@@ -64,6 +64,15 @@ function getUserInfo() {
             throw new Error(`Error occurred while parsing user xml ${error.getAttribute('code')}`);
         }
 
+        const redirect = res.querySelector('redirect');
+
+        if (redirect) {
+            return request({
+                url: redirect.textContent,
+                type: 'xml'
+            });
+        }
+
         return res.querySelector('body').querySelector('default_email').textContent;
     });
 }
