@@ -7,8 +7,7 @@
   "main": "index.js",
   "author": {
     "name": "Alexander Ivantsov",
-    "email": "alexivantsov@ya.ru",
-    "url": "http://aivantsov.com"
+    "email": "alexivantsov@ya.ru"
   },
   "engines": {
     "firefox": ">=38.0a1",
