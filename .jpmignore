@@ -10,5 +10,6 @@
 .gitignore
 .eslintrc
 .travis.yml
+.babelrc
 README.md
 webpack.config.*
