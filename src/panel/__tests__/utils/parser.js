@@ -120,7 +120,7 @@ describe('utils/parser', () => {
                 createElement('folder_list')
             ]);
 
-            expect(() => parser(xml)).toThrowError(`Error occurred while parsing messages xml ${errorCode}`);
+            expect(() => parser(xml)).toThrowError(`Messages xml has error field with code: ${errorCode}`);
         });
     });
 
