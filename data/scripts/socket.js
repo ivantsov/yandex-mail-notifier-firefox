@@ -2,18 +2,18 @@ let WS;
 const emitEvent = self.port.emit;
 const addListener = self.port.on;
 
-function onOpen() {
-    console.log('Socket opened', arguments); // eslint-disable-line no-console
+function onOpen(...args) {
+    console.log('Socket opened', args); // eslint-disable-line no-console
 }
 
-function onClose() {
-    console.error('Socket closed', arguments); // eslint-disable-line no-console
+function onClose(...args) {
+    console.error('Socket closed', args); // eslint-disable-line no-console
 
     emitEvent('reconnect');
 }
 
-function onError() {
-    console.error('Error occurred in socket', arguments); // eslint-disable-line no-console
+function onError(...args) {
+    console.error('Error occurred in socket', args); // eslint-disable-line no-console
 
     emitEvent('reconnect');
 }
