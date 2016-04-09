@@ -1,4 +1,4 @@
-const {API_URL} = require('../../config');
+import {API_URL} from '../../config';
 
 function logError(status, res) {
     const error = new Error(status);
@@ -72,7 +72,7 @@ function get(url) {
     });
 }
 
-module.exports = {
+export default {
     get,
     post
 };

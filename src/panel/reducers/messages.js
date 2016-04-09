@@ -1,9 +1,9 @@
-const {
+import {
     LOAD_MESSAGES,
     LOAD_MESSAGES_SUCCESS,
     LOAD_MESSAGES_ERROR,
     UPDATE_MESSAGE_STATUS_SUCCESS
-} = require('../constants');
+} from '../constants';
 
 const initialState = {
     unreadCount: 0,
@@ -12,7 +12,7 @@ const initialState = {
     error: false
 };
 
-function reducer(state = initialState, action) {
+export default (state = initialState, action) => {
     switch (action.type) {
         case LOAD_MESSAGES:
             return {
@@ -43,6 +43,4 @@ function reducer(state = initialState, action) {
                 ...state
             };
     }
-}
-
-module.exports = reducer;
+};

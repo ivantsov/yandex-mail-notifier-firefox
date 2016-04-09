@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
-const l10n = require('../utils/l10n');
-const Spinner = require('./spinner');
-const Item = require('./item');
+import l10n from '../utils/l10n';
+import Spinner from './spinner';
+import Item from './item';
 
 const List = ({items, loading, error, onUpdateMessageStatus}) => {
     if (loading) {
@@ -26,4 +26,4 @@ List.propTypes = {
     onUpdateMessageStatus: PropTypes.func.isRequired
 };
 
-module.exports = List;
+export default List;

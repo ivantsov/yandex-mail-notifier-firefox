@@ -14,4 +14,4 @@ const Spinner = () => {
     );
 };
 
-module.exports = Spinner;
+export default Spinner;

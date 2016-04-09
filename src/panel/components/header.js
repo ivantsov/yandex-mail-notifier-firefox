@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
-const l10n = require('../utils/l10n');
-const {openTab} = require('../utils/tab');
+import l10n from '../utils/l10n';
+import openTab from '../utils/tab';
 
 const Header = ({user, unreadCount, loading, onReload}) => {
     return (
@@ -36,4 +36,4 @@ Header.propTypes = {
     onReload: PropTypes.func.isRequired
 };
 
-module.exports = Header;
+export default Header;

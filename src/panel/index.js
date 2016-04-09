@@ -1,8 +1,8 @@
-const React = require('react');
-const {render, unmountComponentAtNode} = require('react-dom');
-const {Provider} = require('react-redux');
-const {ConnectedComponent: App} = require('./components/app');
-const configureStore = require('./store');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {Provider} from 'react-redux';
+import App from './components/app';
+import configureStore from './store';
 
 const mountNode = document.getElementById('app');
 const addListener = self.port.on;
@@ -10,11 +10,11 @@ const addListener = self.port.on;
 addListener('show', initialState => {
     const store = configureStore(initialState);
 
-    render(
+    ReactDOM.render(
         <Provider store={store}>
-            <App/>
+            <App.ConnectedComponent/>
         </Provider>, mountNode
     );
 });
 
-addListener('hide', () => unmountComponentAtNode(mountNode));
+addListener('hide', () => ReactDOM.unmountComponentAtNode(mountNode));

@@ -1,5 +1,1 @@
-function reducer(state = '') {
-    return state;
-}
-
-module.exports = reducer;
+export default (state = '') => state;

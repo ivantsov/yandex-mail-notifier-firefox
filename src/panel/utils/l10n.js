@@ -28,7 +28,7 @@ function date(value) {
     return `${value.getDate()} ${month}${yearPostfix}`;
 }
 
-module.exports = {
+export default {
     text,
     date
 };

@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-const l10n = require('../utils/l10n');
+import l10n from '../utils/l10n';
 
 const HoverMenu = ({id, onUpdateMessageStatus}) => {
     const params = {
@@ -37,4 +37,4 @@ HoverMenu.propTypes = {
     onUpdateMessageStatus: PropTypes.func.isRequired
 };
 
-module.exports = HoverMenu;
+export default HoverMenu;

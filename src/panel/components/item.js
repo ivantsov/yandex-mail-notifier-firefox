@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
-const l10n = require('../utils/l10n');
-const {openTab} = require('../utils/tab');
-const HoverMenu = require('./hover-menu');
+import l10n from '../utils/l10n';
+import openTab from '../utils/tab';
+import HoverMenu from './hover-menu';
 
 const Item = ({id, from, subject, firstline, date, onUpdateMessageStatus}) => {
     return (
@@ -29,4 +29,4 @@ Item.propTypes = {
     onUpdateMessageStatus: PropTypes.func.isRequired
 };
 
-module.exports = Item;
+export default Item;

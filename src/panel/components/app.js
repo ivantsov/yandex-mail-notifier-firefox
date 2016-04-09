@@ -1,9 +1,9 @@
 import React, {PropTypes} from 'react';
-const {connect} = require('react-redux');
-const {loadMessages, updateMessageStatus} = require('../actions');
-const Notification = require('./notification');
-const Header = require('./header');
-const List = require('./list');
+import {connect} from 'react-redux';
+import actions from '../actions';
+import Notification from './notification';
+import Header from './header';
+import List from './list';
 
 const App = React.createClass({
     propTypes: {
@@ -53,7 +53,7 @@ function mapStateToProps(state) {
     return state;
 }
 
-module.exports = {
+export default {
     Component: App,
     ConnectedComponent: connect(mapStateToProps)(App)
 };

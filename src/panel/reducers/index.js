@@ -1,9 +1,9 @@
-const {combineReducers} = require('redux');
-const user = require('./user');
-const messages = require('./messages');
-const notification = require('./notification');
+import {combineReducers} from 'redux';
+import user from './user';
+import messages from './messages';
+import notification from './notification';
 
-module.exports = combineReducers({
+export default combineReducers({
     user,
     messages,
     notification
