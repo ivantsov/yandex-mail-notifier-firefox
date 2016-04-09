@@ -13,12 +13,10 @@ function getFilteredMessage(messages, folders) {
 }
 
 function parseFolders(folders) {
-    return [...folders].map(folder => {
-        return {
-            id: getText(folder, 'fid'),
-            symbol: getText(folder, 'symbol')
-        };
-    });
+    return [...folders].map(folder => ({
+        id: getText(folder, 'fid'),
+        symbol: getText(folder, 'symbol')
+    }));
 }
 
 function parseMessages(messages) {

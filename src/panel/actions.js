@@ -27,8 +27,8 @@ function loadMessages() {
 }
 
 function updateMessageStatus(data) {
-    return dispatch => {
-        return api.updateMessageStatus(data)
+    return dispatch =>
+        api.updateMessageStatus(data)
             .then(() => {
                 dispatch({
                     type: UPDATE_MESSAGE_STATUS_SUCCESS,

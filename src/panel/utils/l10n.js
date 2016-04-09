@@ -23,7 +23,7 @@ function date(value) {
         yearPostfix = ` ${value.getFullYear()}`;
     }
 
-    const month = text('month' + (value.getMonth() + 1));
+    const month = text(`month${value.getMonth() + 1}`);
 
     return `${value.getDate()} ${month}${yearPostfix}`;
 }

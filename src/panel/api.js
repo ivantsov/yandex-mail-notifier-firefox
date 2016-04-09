@@ -3,11 +3,11 @@ import request from './utils/request';
 import parser from './utils/parser';
 
 function loadMessages() {
-    return get(MESSAGES_URL).then(parser);
+    return request.get(MESSAGES_URL).then(parser);
 }
 
 function updateMessageStatus({oper, id}) {
-    return post({
+    return request.post({
         url: MESSAGE_ACTION_URL,
         params: {
             ids: [id],
