@@ -23,21 +23,16 @@
     "lint": "eslint src data/scripts",
     "lint:fix": "eslint --fix src data/scripts",
     "test": "jest --coverage && coveralls < coverage/lcov.info",
-    "test:watch": "jest --watch",
+    "test:watch": "jest --watch=all",
     "build": "webpack --config webpack.config.prod.js && jpm xpi",
     "build:watch": "webpack --config webpack.config.dev.js --watch"
   },
   "jest": {
-    "testRunner": "<rootDir>/node_modules/jest-cli/src/testRunners/jasmine/jasmine2",
-    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
+    "testDirectoryName": "tests",
     "unmockedModulePathPatterns": [
       "<rootDir>/node_modules/react",
       "<rootDir>/node_modules/react-dom",
-      "<rootDir>/node_modules/react-addons-test-utils",
-      "<rootDir>/node_modules/fbjs"
-    ],
-    "modulePathIgnorePatterns": [
-      "<rootDir>/node_modules/"
+      "<rootDir>/node_modules/react-addons-test-utils"
     ]
   },
   "devDependencies": {
