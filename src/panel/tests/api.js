@@ -1,9 +1,22 @@
-jest.dontMock('../api');
+jest.unmock('../api');
 
-const {MESSAGES_URL, MESSAGE_ACTION_URL} = require('../../config');
-const {loadMessages, updateMessageStatus} = require('../api');
-const {get, post} = require('../utils/request');
-const parser = require('../utils/parser');
+import {
+    MESSAGES_URL,
+    MESSAGE_ACTION_URL
+} from '../../config';
+import api from '../api';
+import request from '../utils/request';
+import parse from '../utils/parser';
+
+const {
+    loadMessages,
+    updateMessageStatus
+} = api;
+
+const {
+    get,
+    post
+} = request;
 
 describe('api', () => {
     it('defined', () => {
@@ -14,11 +27,11 @@ describe('api', () => {
     pit('load messages', () => {
         const getExpected = 'somedata';
 
-        get.mockImpl(() => Promise.resolve(getExpected));
+        get.mockReturnValue(Promise.resolve(getExpected));
 
         return loadMessages().then(() => {
-            expect(get).toBeCalledWith(MESSAGES_URL);
-            expect(parser).toBeCalledWith(getExpected);
+            expect(get).lastCalledWith(MESSAGES_URL);
+            expect(parse).lastCalledWith(getExpected);
         });
     });
 
@@ -28,7 +41,7 @@ describe('api', () => {
             oper: 'delete'
         };
 
-        afterEach(post.mockClear);
+        beforeEach(post.mockClear);
 
         pit('with error', () => {
             post.mockImpl(() => {
@@ -45,7 +58,7 @@ describe('api', () => {
                 .catch(err => {
                     expect(err).toBeDefined();
 
-                    expect(post).toBeCalledWith({
+                    expect(post).lastCalledWith({
                         url: MESSAGE_ACTION_URL,
                         params: {
                             ids: [params.id],
@@ -66,7 +79,7 @@ describe('api', () => {
                 .then(res => {
                     expect(res).toBeUndefined();
 
-                    expect(post).toBeCalledWith({
+                    expect(post).lastCalledWith({
                         url: MESSAGE_ACTION_URL,
                         params: {
                             ids: [params.id],
