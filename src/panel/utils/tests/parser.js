@@ -1,7 +1,7 @@
-jest.dontMock('../../../config');
-jest.dontMock('../../utils/parser');
+jest.unmock('../../../config');
+jest.unmock('../parser');
 
-const parser = require('../../utils/parser');
+import parse from '../parser';
 
 function createElement(name, children = [], attrs = {}) {
     const element = document.createElement(name);
@@ -93,22 +93,22 @@ function getFixtures() {
     };
 }
 
-describe('utils/parser', () => {
+describe('parse', () => {
     it('defined', () => {
-        expect(parser).toBeDefined();
+        expect(parse).toBeDefined();
     });
 
     describe('bad xml', () => {
         it('messages', () => {
             const xml = createElement('doc', [createElement('folder_list')]);
 
-            expect(() => parser(xml)).toThrowError('Bad response format in messages xml');
+            expect(() => parse(xml)).toThrowError('Bad response format in messages xml');
         });
 
         it('folders', () => {
             const xml = createElement('doc', [createElement('mailbox_list')]);
 
-            expect(() => parser(xml)).toThrowError('Bad response format in messages xml');
+            expect(() => parse(xml)).toThrowError('Bad response format in messages xml');
         });
 
         it('error', () => {
@@ -120,7 +120,7 @@ describe('utils/parser', () => {
                 createElement('folder_list')
             ]);
 
-            expect(() => parser(xml)).toThrowError(`Messages xml has error field with code: ${errorCode}`);
+            expect(() => parse(xml)).toThrowError(`Messages xml has error field with code: ${errorCode}`);
         });
     });
 
@@ -135,7 +135,7 @@ describe('utils/parser', () => {
                 createElement('folder_list')
             ]);
 
-            expect(parser(xml)).toEqual({
+            expect(parse(xml)).toEqual({
                 unreadCount: expected,
                 items: []
             });
@@ -152,7 +152,7 @@ describe('utils/parser', () => {
                 createElement('folder_list')
             ]);
 
-            const {items} = parser(xml);
+            const {items} = parse(xml);
 
             expect(items.length).toBe(messageElements.length);
 
@@ -187,7 +187,7 @@ describe('utils/parser', () => {
                 createElement('folder_list', folderElements)
             ]);
 
-            const {items} = parser(xml);
+            const {items} = parse(xml);
             const expected = messages[1];
             const result = items[0];
 
