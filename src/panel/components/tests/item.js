@@ -1,17 +1,12 @@
-jest.dontMock('../../utils/l10n');
-jest.dontMock('../../components/hover-menu');
-jest.dontMock('../../components/item');
+jest.unmock('..//hover-menu');
+jest.unmock('../item');
 
-self.options = {
-    l10n: {}
-};
-
-const React = require('react');
-const TestUtils = require('react-addons-test-utils');
-const l10n = require('../../utils/l10n');
-const {openTab} = require('../../utils/tab');
-const HoverMenu = require('../../components/hover-menu');
-const Item = require('../../components/item');
+import React from 'react';
+import TestUtils from 'react-addons-test-utils';
+import l10n from '../../utils/l10n';
+import openTab from '../../utils/tab';
+import HoverMenu from '../hover-menu';
+import Item from '../item';
 
 const baseProps = {
     id: '123',
@@ -21,6 +16,9 @@ const baseProps = {
     date: new Date(),
     onUpdateMessageStatus: jest.genMockFn()
 };
+const l10nReturnValue = 'test';
+
+l10n.date = jest.fn(() => l10nReturnValue);
 
 function getRenderOutput(props) {
     const renderer = TestUtils.createRenderer();
@@ -36,14 +34,28 @@ describe('Item', () => {
     });
 
     it('render', () => {
-        const {type, props: {children, onClick}} = getRenderOutput(baseProps);
-        const [header, subject, content, hoverMenu] = children;
-        const [from, date] = header.props.children;
+        const {
+            type,
+            props: {
+                children,
+                onClick
+            }
+        } = getRenderOutput(baseProps);
+        const [
+            header,
+            subject,
+            content,
+            hoverMenu
+        ] = children;
+        const [
+            from,
+            date
+        ] = header.props.children;
 
         expect(type).toBe('a');
         expect(onClick).toEqual(jasmine.any(Function));
         expect(from.props.children).toBe(baseProps.from);
-        expect(date.props.children).toBe(l10n.date(baseProps.date));
+        expect(date.props.children).toBe(l10nReturnValue);
         expect(subject.props.children).toBe(baseProps.subject);
         expect(content.props.children).toBe(baseProps.firstline);
         expect(hoverMenu.type).toBe(HoverMenu);
@@ -61,6 +73,6 @@ describe('Item', () => {
 
         TestUtils.Simulate.click(componentNode);
 
-        expect(openTab).toBeCalledWith(`#message/${baseProps.id}`);
+        expect(openTab).lastCalledWith(`#message/${baseProps.id}`);
     });
 });

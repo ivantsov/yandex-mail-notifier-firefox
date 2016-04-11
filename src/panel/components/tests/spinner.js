@@ -1,8 +1,8 @@
-jest.dontMock('../../components/spinner');
+jest.unmock('../spinner');
 
-const React = require('react');
-const TestUtils = require('react-addons-test-utils');
-const Spinner = require('../../components/spinner');
+import React from 'react';
+import TestUtils from 'react-addons-test-utils';
+import Spinner from '../spinner';
 
 describe('Spinner', () => {
     it('defined', () => {
