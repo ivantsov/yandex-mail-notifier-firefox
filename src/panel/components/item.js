@@ -3,22 +3,34 @@ import l10n from '../utils/l10n';
 import openTab from '../utils/tab';
 import HoverMenu from './hover-menu';
 
-const Item = ({id, from, subject, firstline, date, onUpdateMessageStatus}) => {
-    return (
-        <a className="email" href="#" onClick={() => openTab(`#message/${id}`)}>
-            <p>
-                <span className="email__from">{from}</span>
-                <span className="email__date">{l10n.date(date)}</span>
-            </p>
+const Item = ({
+    id,
+    from,
+    subject,
+    firstline,
+    date,
+    onUpdateMessageStatus
+}) => (
+    <a
+        href="#"
+        className="email"
+        onClick={() => openTab(`#message/${id}`)}
+    >
+        <p>
+            <span className="email__from">{from}</span>
+            <span className="email__date">{l10n.date(date)}</span>
+        </p>
 
-            <p>{subject}</p>
+        <p>{subject}</p>
 
-            <p className="email__content">{firstline}</p>
+        <p className="email__content">{firstline}</p>
 
-            <HoverMenu id={id} onUpdateMessageStatus={onUpdateMessageStatus}/>
-        </a>
-    );
-};
+        <HoverMenu
+            id={id}
+            onUpdateMessageStatus={onUpdateMessageStatus}
+        />
+    </a>
+);
 
 Item.propTypes = {
     id: PropTypes.string.isRequired,

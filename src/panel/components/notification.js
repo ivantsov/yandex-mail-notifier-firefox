@@ -18,7 +18,7 @@ const Notification = React.createClass({
             this.setState({isShown: true});
 
             this.timer = setTimeout(() => {
-                if (this.isMounted()) {
+                if (this.isMounted()) { // eslint-disable-line react/no-is-mounted
                     this.setState({isShown: false});
                 }
             }, ERROR_NOTIFICATION_TIMEOUT);

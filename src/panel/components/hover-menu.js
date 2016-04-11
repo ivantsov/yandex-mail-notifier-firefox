@@ -1,7 +1,10 @@
 import React, {PropTypes} from 'react';
 import l10n from '../utils/l10n';
 
-const HoverMenu = ({id, onUpdateMessageStatus}) => {
+const HoverMenu = ({
+    id,
+    onUpdateMessageStatus
+}) => {
     const params = {
         markRead(e) {
             e.stopPropagation();
@@ -21,9 +24,19 @@ const HoverMenu = ({id, onUpdateMessageStatus}) => {
     };
 
     const items = Object.keys(params).map((key, index) => (
-        <div className="hover-menu__item" key={index} onClick={params[key]}>
-            <svg xmlns="http://www.w3.org/2000/svg" className="hover-menu__icon">
-                <use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref={`#${key}`}></use>
+        <div
+            key={index}
+            className="hover-menu__item"
+            onClick={params[key]}
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="hover-menu__icon"
+            >
+                <use
+                    xmlnsXlink="http://www.w3.org/1999/xlink"
+                    xlinkHref={`#${key}`}
+                />
             </svg>
             <div className="hover-menu__text">{l10n.text(key)}</div>
         </div>
