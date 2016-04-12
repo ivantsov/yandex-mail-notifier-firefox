@@ -15,6 +15,15 @@ const {
     updateMessageStatus
 } = actions;
 
+const errorRes = {
+    message: 'test',
+    stack: 'stack'
+};
+
+window.console = {
+    error: jest.fn()
+};
+
 describe('api', () => {
     it('defined', () => {
         expect(loadMessages).toBeDefined();
@@ -22,18 +31,16 @@ describe('api', () => {
     });
 
     describe('loadMessages', () => {
-        function checkCase(promise) {
-            const dispatch = jest.fn();
-
-            loadMessages.mockReturnValue(promise);
+        function checkCase(promise, dispatch) {
+            api.loadMessages.mockReturnValue(promise);
 
             loadMessages()(dispatch);
 
             expect(dispatch).lastCalledWith({type: LOAD_MESSAGES});
-            expect(loadMessages).toBeCalled();
+            expect(api.loadMessages).toBeCalled();
         }
 
-        beforeEach(loadMessages.mockClear);
+        beforeEach(api.loadMessages.mockClear);
 
         pit('success', () => {
             const expected = {
@@ -43,7 +50,7 @@ describe('api', () => {
             const promise = Promise.resolve(expected);
             const dispatch = jest.fn();
 
-            checkCase(promise);
+            checkCase(promise, dispatch);
 
             return promise.then(() => {
                 expect(dispatch).lastCalledWith({
@@ -54,36 +61,45 @@ describe('api', () => {
         });
 
         pit('error', () => {
-            const promise = Promise.reject();
+            const promise = Promise.reject(errorRes);
             const dispatch = jest.fn();
 
-            checkCase(promise);
+            checkCase(promise, dispatch);
 
             return promise
                 .then(fail)
-                .catch(() => expect(dispatch).lastCalledWith({type: LOAD_MESSAGES_ERROR}));
+                .catch(() => {
+                    expect(dispatch).lastCalledWith({type: LOAD_MESSAGES_ERROR});
+                    expect(console.error).lastCalledWith(errorRes.message, errorRes.stack);
+                });
         });
     });
 
     describe('updateMessageStatus', () => {
-        function checkCase(promise, expected) {
-            const dispatch = jest.fn();
-
-            updateMessageStatus.mockReturnValue(promise);
+        function checkCase({
+            promise,
+            dispatch,
+            expected
+        }) {
+            api.updateMessageStatus.mockReturnValue(promise);
 
             updateMessageStatus(expected)(dispatch);
 
             expect(api.updateMessageStatus).lastCalledWith(expected);
         }
 
-        beforeEach(updateMessageStatus.mockClear);
+        beforeEach(api.updateMessageStatus.mockClear);
 
         pit('success', () => {
             const expected = {id: 1};
             const promise = Promise.resolve();
             const dispatch = jest.fn();
 
-            checkCase(promise, expected);
+            checkCase({
+                promise,
+                dispatch,
+                expected
+            });
 
             return promise.then(() => {
                 expect(dispatch).lastCalledWith({
@@ -97,11 +113,17 @@ describe('api', () => {
             const promise = Promise.reject();
             const dispatch = jest.fn();
 
-            checkCase(promise);
+            checkCase({
+                promise,
+                dispatch
+            });
 
             return promise
                 .then(fail)
-                .catch(() => expect(dispatch).lastCalledWith({type: UPDATE_MESSAGE_STATUS_ERROR}));
+                .catch(() => {
+                    expect(dispatch).lastCalledWith({type: UPDATE_MESSAGE_STATUS_ERROR});
+                    expect(console.error).lastCalledWith(errorRes.message, errorRes.stack);
+                });
         });
     });
 });
