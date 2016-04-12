@@ -57,5 +57,9 @@ describe('Notification', () => {
         expect(type).toBe('div');
         expect(props.className).toBe('notification notification_open');
         expect(props.children).toBe(l10nReturnValue);
+
+        jest.runAllTimers();
+
+        expect(renderer.getRenderOutput().props.className).toBe('notification ');
     });
 });
