@@ -70,7 +70,7 @@ describe('api', () => {
                 .then(fail)
                 .catch(() => {
                     expect(dispatch).lastCalledWith({type: LOAD_MESSAGES_ERROR});
-                    expect(console.error).lastCalledWith(errorRes.message, errorRes.stack);
+                    expect(console.error).lastCalledWith(errorRes.message, errorRes.stack); // eslint-disable-line no-console
                 });
         });
     });
@@ -122,7 +122,7 @@ describe('api', () => {
                 .then(fail)
                 .catch(() => {
                     expect(dispatch).lastCalledWith({type: UPDATE_MESSAGE_STATUS_ERROR});
-                    expect(console.error).lastCalledWith(errorRes.message, errorRes.stack);
+                    expect(console.error).lastCalledWith(errorRes.message, errorRes.stack); // eslint-disable-line no-console
                 });
         });
     });

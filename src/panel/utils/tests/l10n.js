@@ -5,7 +5,7 @@ import l10n from '../l10n';
 const months = Array
     .from(Array(12).keys())
     .reduce((obj, item) => {
-        obj[`month${item}`] = `month${item}`;
+        obj[`month${item}`] = `month${item}`;   // eslint-disable-line no-param-reassign
         return obj;
     }, {});
 
