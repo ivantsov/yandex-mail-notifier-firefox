@@ -1,8 +1,6 @@
-// provided via contentScriptOptions
-const {l10n} = self.options;
-
 function text(key) {
-    return l10n[key];
+    // provided via contentScriptOptions
+    return self.options.l10n[key];
 }
 
 function addNil(value) {

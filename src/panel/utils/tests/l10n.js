@@ -1,6 +1,9 @@
-jest.dontMock('../../utils/l10n');
+jest.unmock('../l10n');
 
-const months = Array.from(Array(12).keys())
+import l10n from '../l10n';
+
+const months = Array
+    .from(Array(12).keys())
     .reduce((obj, item) => {
         obj[`month${item}`] = `month${item}`;
         return obj;
@@ -10,9 +13,7 @@ self.options = {
     l10n: months
 };
 
-const l10n = require('../../utils/l10n');
-
-describe('utils/l10n', () => {
+describe('l10n', () => {
     it('defined', () => {
         expect(l10n).toBeDefined();
     });
