@@ -29,7 +29,11 @@ function getParamsString(params = {}) {
     return keys.join('&');
 }
 
-function request({type, url, params}) {
+function request({
+    type,
+    url,
+    params
+}) {
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
 

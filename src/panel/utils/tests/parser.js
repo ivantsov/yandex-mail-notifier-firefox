@@ -3,7 +3,11 @@ jest.unmock('../parser');
 
 import parse from '../parser';
 
-function createElement(name, children = [], attrs = {}) {
+function createElement(
+    name,
+    children = [],
+    attrs = {}
+) {
     const element = document.createElement(name);
 
     children.forEach(child => element.appendChild(child));
@@ -62,8 +66,15 @@ function getFixtures() {
         fid: folders[2].id
     }];
 
-    const messageElements = messages.map(({id, subject, from, firstline, date, fid}) => {
-        return createElement('message', [
+    const messageElements = messages.map(({
+        id,
+        subject,
+        from,
+        firstline,
+        date,
+        fid
+    }) =>
+        createElement('message', [
             createElement('from', [
                 createElement('name', [], from.name),
                 createElement('email', [], from.email)
@@ -76,15 +87,15 @@ function getFixtures() {
             mid: id,
             recv_date: date,
             fid
-        });
-    });
+        })
+    );
 
-    const folderElements = folders.map(({id, symbol}) => {
-        return createElement('folder', [
+    const folderElements = folders.map(({id, symbol}) =>
+        createElement('folder', [
             createElement('fid', [], id),
             createElement('symbol', [], symbol)
-        ]);
-    });
+        ])
+    );
 
     return {
         messages,
