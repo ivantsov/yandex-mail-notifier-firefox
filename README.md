@@ -16,7 +16,7 @@ Tunable Firefox extension for Yandex.Mail with lots of features.
 * Handles emails from all folders
 * English and Russian localizations
 * Tunable desktop and sound notifications for new and unread emails
-* Panel for quick work with mail
+* Panel for quick work with emails
 * Indicator and notifications when you're not authorized
 
 The addon is built with [JPM](https://developer.mozilla.org/Add-ons/SDK/Tools/jpm).
