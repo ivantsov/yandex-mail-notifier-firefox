@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "babel-core": "^6.7.6",
-    "babel-jest": "^10.0.1",
+    "babel-jest": "^11.0.0",
     "babel-loader": "^6.2.4",
     "babel-plugin-syntax-object-rest-spread": "^6.5.0",
     "babel-plugin-transform-es2015-destructuring": "^6.6.5",
@@ -49,11 +49,12 @@
     "babel-preset-react": "^6.5.0",
     "coveralls": "^2.11.9",
     "eslint": "^2.7.0",
-    "eslint-config-airbnb": "^6.2.0",
+    "eslint-config-airbnb": "^7.0.0",
+    "eslint-plugin-jsx-a11y": "^0.6.2",
     "eslint-plugin-react": "^4.3.0",
-    "jest-cli": "^0.10.0",
+    "jest-cli": "^11.0.0",
     "react-addons-test-utils": "^15.0.1",
-    "webpack": "^1.12.14"
+    "webpack": "^1.12.15"
   },
   "dependencies": {
     "react": "^15.0.1",
