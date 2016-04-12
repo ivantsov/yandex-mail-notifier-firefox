@@ -19,6 +19,6 @@ Tunable Firefox extension for Yandex.Mail with lots of features.
 * Panel for quick work with mail
 * Indicator and notifications when you're not authorized
 
-The addon is build on [JPM](https://developer.mozilla.org/Add-ons/SDK/Tools/jpm).
+The addon is built with [JPM](https://developer.mozilla.org/Add-ons/SDK/Tools/jpm).
 
 Addon page: [https://addons.mozilla.org/addon/yandex-mail-notifier](https://addons.mozilla.org/addon/yandex-mail-notifier)
