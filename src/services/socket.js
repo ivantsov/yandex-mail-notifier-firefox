@@ -55,13 +55,14 @@ function init() {
         operation,
         new_messages,
         mid: id,
+        hdr_status: status,
         hdr_from: from,
         hdr_subject: subject,
         firstline
     }) => {
         const unreadCount = parseInt(new_messages, 10);
 
-        if (operation === 'insert') {
+        if (operation === 'insert' && status === 'New') {
             const nameMatch = from.match(/^"(.+)"/);
             const emailMatch = from.match(/<(.+)>$/);
 
