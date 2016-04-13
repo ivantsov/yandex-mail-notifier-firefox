@@ -76,9 +76,6 @@ function init() {
                 }
             });
         }
-        else if (!Number.isNaN(unreadCount)) {
-            observer.emitEvent('unreadCountChanged', {unreadCount});
-        }
         else {
             getUnreadCount().then(unreadCount => observer.emitEvent('unreadCountChanged', {unreadCount})); // eslint-disable-line no-shadow
         }
