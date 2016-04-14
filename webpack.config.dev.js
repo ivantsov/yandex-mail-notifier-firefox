@@ -4,9 +4,6 @@ module.exports = {
         path: './data/panel',
         filename: 'index.js'
     },
-    resolve: {
-        extensions: ['', '.js']
-    },
     module: {
         loaders: [{
             test: /\.js$/,
