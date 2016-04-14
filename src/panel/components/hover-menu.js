@@ -38,7 +38,7 @@ const HoverMenu = ({
                     xlinkHref={`#${key}`}
                 />
             </svg>
-            <div className="hover-menu__text">{l10n.text(key)}</div>
+            <div>{l10n.text(key)}</div>
         </div>
     ));
 
