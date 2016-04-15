@@ -1,10 +1,10 @@
 {
   "title": "Yandex.Mail notifier",
   "name": "yandex-mail-notifier",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Tunable notifier for Yandex.Mail",
   "id": "jid0-vsitoD18LSTi4VQGGLCVmIoJSsU@jetpack",
-  "icon": "resource://yandex-mail-notifier/data/icons/addon-logo.png",
+  "icon": "resource://@yandex-mail-notifier/data/icons/addon-logo.png",
   "main": "index.js",
   "author": {
     "name": "Alexander Ivantsov",
