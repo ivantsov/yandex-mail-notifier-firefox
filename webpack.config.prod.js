@@ -8,8 +8,7 @@ module.exports = Object.assign({}, config, {
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('production')
         })
-        // uncomment it when UglifyJS will be released
-
+        // TODO: uncomment it when UglifyJS v2 will be released
         /* new webpack.optimize.UglifyJsPlugin({
             mangle: false,
             compress: {

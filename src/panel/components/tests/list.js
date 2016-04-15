@@ -1,27 +1,26 @@
-jest.dontMock('../../utils/l10n');
-jest.dontMock('../../components/spinner');
-jest.dontMock('../../components/item');
-jest.dontMock('../../components/list');
+jest.unmock('../spinner');
+jest.unmock('../item');
+jest.unmock('../list');
 
-self.options = {
-    l10n: {
-        loadingError: 'loading error',
-        emptyList: 'no items'
-    }
-};
-
-const React = require('react');
-const TestUtils = require('react-addons-test-utils');
-const Spinner = require('../../components/spinner');
-const Item = require('../../components/item');
-const List = require('../../components/list');
+import React from 'react';
+import TestUtils from 'react-addons-test-utils';
+import l10n from '../../utils/l10n';
+import Spinner from '../spinner';
+import Item from '../item';
+import List from '../list';
 
 const baseProps = {
     items: [],
     loading: true,
     error: false,
-    onUpdateMessageStatus: jest.genMockFn()
+    onUpdateMessageStatus: jest.fn()
 };
+const l10nDictionary = {
+    loadingError: 'loading error',
+    emptyList: 'no items'
+};
+
+l10n.text = jest.fn(key => l10nDictionary[key]);
 
 function getRenderOutput(props) {
     const renderer = TestUtils.createRenderer();
@@ -50,7 +49,7 @@ describe('List', () => {
         });
 
         expect(type).toBe('div');
-        expect(props.children).toBe(self.options.l10n.loadingError);
+        expect(props.children).toBe(l10nDictionary.loadingError);
     });
 
     it('no items', () => {
@@ -60,7 +59,7 @@ describe('List', () => {
         });
 
         expect(type).toBe('div');
-        expect(props.children).toBe(self.options.l10n.emptyList);
+        expect(props.children).toBe(l10nDictionary.emptyList);
     });
 
     it('with items', () => {

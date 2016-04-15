@@ -1,16 +1,14 @@
-jest.dontMock('../../utils/l10n');
-jest.dontMock('../../components/notification');
+jest.unmock('../notification');
 
-self.options = {
-    l10n: {
-        operationError: 'error text'
-    }
-};
+import React from 'react';
+import TestUtils from 'react-addons-test-utils';
+import {ERROR_NOTIFICATION_TIMEOUT} from '../../../config';
+import l10n from '../../utils/l10n';
+import Notification from '../notification';
 
-const React = require('react');
-const TestUtils = require('react-addons-test-utils');
-const {ERROR_NOTIFICATION_TIMEOUT} = require('../../../config');
-const Notification = require('../../components/notification');
+const l10nReturnValue = 'test';
+
+l10n.text = jest.fn(() => l10nReturnValue);
 
 describe('Notification', () => {
     it('defined', () => {
@@ -28,7 +26,7 @@ describe('Notification', () => {
         expect(setTimeout).not.toBeCalled();
         expect(type).toBe('div');
         expect(props.className).toBe('notification ');
-        expect(props.children).toBe(self.options.l10n.operationError);
+        expect(props.children).toBe(l10nReturnValue);
     });
 
     it('second render with the same props', () => {
@@ -43,7 +41,7 @@ describe('Notification', () => {
         expect(setTimeout).not.toBeCalled();
         expect(type).toBe('div');
         expect(props.className).toBe('notification ');
-        expect(props.children).toBe(self.options.l10n.operationError);
+        expect(props.children).toBe(l10nReturnValue);
     });
 
     it('second render with different props', () => {
@@ -55,9 +53,13 @@ describe('Notification', () => {
         const {type, props} = renderer.getRenderOutput();
 
         expect(clearTimeout).toBeCalled();
-        expect(setTimeout).toBeCalledWith(jasmine.any(Function), ERROR_NOTIFICATION_TIMEOUT);
+        expect(setTimeout).lastCalledWith(jasmine.any(Function), ERROR_NOTIFICATION_TIMEOUT);
         expect(type).toBe('div');
         expect(props.className).toBe('notification notification_open');
-        expect(props.children).toBe(self.options.l10n.operationError);
+        expect(props.children).toBe(l10nReturnValue);
+
+        jest.runAllTimers();
+
+        expect(renderer.getRenderOutput().props.className).toBe('notification ');
     });
 });

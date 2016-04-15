@@ -10,6 +10,7 @@ const button = ActionButton({
     id: ID,
     icon: ICON_GRAY,
     label: _('buttonLabel'),
+    badgeColor: '#3d5afe',
     onClick() {
         prefs.showPanel && observer.getState().user ? showPanel(button) : openTab();
     }

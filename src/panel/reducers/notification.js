@@ -1,12 +1,10 @@
-const {UPDATE_MESSAGE_STATUS_ERROR} = require('../constants');
+import {UPDATE_MESSAGE_STATUS_ERROR} from '../constants';
 
-function reducer(state = 0, action) {
+export default (state = 0, action) => {
     switch (action.type) {
         case UPDATE_MESSAGE_STATUS_ERROR:
             return state + 1;
         default:
             return state;
     }
-}
-
-module.exports = reducer;
+};

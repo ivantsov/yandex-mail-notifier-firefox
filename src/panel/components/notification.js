@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
-const {ERROR_NOTIFICATION_TIMEOUT} = require('../../config');
-const l10n = require('../utils/l10n');
+import {ERROR_NOTIFICATION_TIMEOUT} from '../../config';
+import l10n from '../utils/l10n';
 
 const Notification = React.createClass({
     propTypes: {
@@ -18,7 +18,7 @@ const Notification = React.createClass({
             this.setState({isShown: true});
 
             this.timer = setTimeout(() => {
-                if (this.isMounted()) {
+                if (this.isMounted()) { // eslint-disable-line react/no-is-mounted
                     this.setState({isShown: false});
                 }
             }, ERROR_NOTIFICATION_TIMEOUT);
@@ -31,4 +31,4 @@ const Notification = React.createClass({
     }
 });
 
-module.exports = Notification;
+export default Notification;

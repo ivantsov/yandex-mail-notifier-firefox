@@ -1,23 +1,20 @@
-jest.dontMock('../../utils/l10n');
-jest.dontMock('../../components/header');
+jest.unmock('../header');
 
-self.options = {
-    l10n: {
-        compose: 'compose'
-    }
-};
-
-const React = require('react');
-const TestUtils = require('react-addons-test-utils');
-const {openTab} = require('../../utils/tab');
-const Header = require('../../components/header');
+import React from 'react';
+import TestUtils from 'react-addons-test-utils';
+import openTab from '../../utils/tab';
+import l10n from '../../utils/l10n';
+import Header from '../header';
 
 const baseProps = {
     user: 'test@ya.ru',
     unreadCount: 10,
     loading: false,
-    onReload: jest.genMockFn()
+    onReload: jest.fn()
 };
+const l10nReturnValue = 'test';
+
+l10n.text.mockReturnValue(l10nReturnValue);
 
 function getRenderOutput(props) {
     const renderer = TestUtils.createRenderer();
@@ -48,7 +45,7 @@ describe('Header', () => {
             expect(button.props.onClick).toBe(baseProps.onReload);
 
             expect(compose.props.onClick).toEqual(jasmine.any(Function));
-            expect(compose.props.children[2]).toBe(self.options.l10n.compose);
+            expect(compose.props.children[1]).toBe(l10nReturnValue);
         });
 
         it('loading', () => {
@@ -82,7 +79,7 @@ describe('Header', () => {
 
             TestUtils.Simulate.click(nodes[2]);
 
-            expect(openTab).toBeCalledWith('#compose');
+            expect(openTab).lastCalledWith('#compose');
         });
 
         it('reload', () => {

@@ -1,8 +1,6 @@
-// provided via contentScriptOptions
-const {l10n} = self.options;
-
 function text(key) {
-    return l10n[key];
+    // provided via contentScriptOptions
+    return self.options.l10n[key];
 }
 
 function addNil(value) {
@@ -23,12 +21,12 @@ function date(value) {
         yearPostfix = ` ${value.getFullYear()}`;
     }
 
-    const month = text('month' + (value.getMonth() + 1));
+    const month = text(`month${value.getMonth() + 1}`);
 
     return `${value.getDate()} ${month}${yearPostfix}`;
 }
 
-module.exports = {
+export default {
     text,
     date
 };

@@ -1,4 +1,4 @@
-const {IGNORED_FOLDERS} = require('../../config');
+import {IGNORED_FOLDERS} from '../../config';
 
 function getText(element, selector) {
     return element.querySelector(selector).textContent;
@@ -13,12 +13,10 @@ function getFilteredMessage(messages, folders) {
 }
 
 function parseFolders(folders) {
-    return [...folders].map(folder => {
-        return {
-            id: getText(folder, 'fid'),
-            symbol: getText(folder, 'symbol')
-        };
-    });
+    return [...folders].map(folder => ({
+        id: getText(folder, 'fid'),
+        symbol: getText(folder, 'symbol')
+    }));
 }
 
 function parseMessages(messages) {
@@ -41,7 +39,7 @@ function parseMessages(messages) {
     });
 }
 
-function parse(xml) {
+export default xml => {
     let messages = xml.querySelector('mailbox_list');
     let folders = xml.querySelector('folder_list');
 
@@ -67,6 +65,4 @@ function parse(xml) {
         unreadCount,
         items: messages
     };
-}
-
-module.exports = parse;
+};

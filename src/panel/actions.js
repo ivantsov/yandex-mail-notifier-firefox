@@ -1,11 +1,11 @@
-const api = require('./api');
-const {
+import api from './api';
+import {
     LOAD_MESSAGES,
     LOAD_MESSAGES_SUCCESS,
     LOAD_MESSAGES_ERROR,
     UPDATE_MESSAGE_STATUS_SUCCESS,
     UPDATE_MESSAGE_STATUS_ERROR
-} = require('./constants');
+} from './constants';
 
 function loadMessages() {
     return dispatch => {
@@ -27,8 +27,8 @@ function loadMessages() {
 }
 
 function updateMessageStatus(data) {
-    return dispatch => {
-        return api.updateMessageStatus(data)
+    return dispatch =>
+        api.updateMessageStatus(data)
             .then(() => {
                 dispatch({
                     type: UPDATE_MESSAGE_STATUS_SUCCESS,
@@ -40,10 +40,9 @@ function updateMessageStatus(data) {
 
                 console.error(err.message, err.stack); // eslint-disable-line no-console
             });
-    };
 }
 
-module.exports = {
+export default {
     loadMessages,
     updateMessageStatus
 };

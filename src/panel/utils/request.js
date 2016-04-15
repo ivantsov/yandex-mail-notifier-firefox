@@ -1,4 +1,4 @@
-const {API_URL} = require('../../config');
+import {API_URL} from '../../config';
 
 function logError(status, res) {
     const error = new Error(status);
@@ -29,7 +29,11 @@ function getParamsString(params = {}) {
     return keys.join('&');
 }
 
-function request({type, url, params}) {
+function request({
+    type,
+    url,
+    params
+}) {
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
 
@@ -72,7 +76,7 @@ function get(url) {
     });
 }
 
-module.exports = {
+export default {
     get,
     post
 };

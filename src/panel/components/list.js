@@ -1,9 +1,14 @@
 import React, {PropTypes} from 'react';
-const l10n = require('../utils/l10n');
-const Spinner = require('./spinner');
-const Item = require('./item');
+import l10n from '../utils/l10n';
+import Spinner from './spinner';
+import Item from './item';
 
-const List = ({items, loading, error, onUpdateMessageStatus}) => {
+const List = ({
+    items,
+    loading,
+    error,
+    onUpdateMessageStatus
+}) => {
     if (loading) {
         return <Spinner/>;
     }
@@ -12,7 +17,13 @@ const List = ({items, loading, error, onUpdateMessageStatus}) => {
         return <div className="center content_empty">{l10n.text(error ? 'loadingError' : 'emptyList')}</div>;
     }
 
-    const messages = items.map(item => <Item key={item.id} onUpdateMessageStatus={onUpdateMessageStatus} {...item}/>);
+    const messages = items.map(item => (
+        <Item
+            key={item.id}
+            onUpdateMessageStatus={onUpdateMessageStatus}
+            {...item}
+        />
+    ));
 
     return <div className="content">{messages}</div>;
 };
@@ -26,4 +37,4 @@ List.propTypes = {
     onUpdateMessageStatus: PropTypes.func.isRequired
 };
 
-module.exports = List;
+export default List;
