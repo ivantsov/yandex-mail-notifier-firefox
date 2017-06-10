@@ -1,16 +1,15 @@
+## 🚧🚧🚧🚧🚧 This Project Is Deprecated 🚧🚧🚧🚧🚧
+
+Use [Yandex.Mail notifier](https://github.com/ivantsov/yandex-mail-notifier) instead, it's based on WebExtension API which supported by Chrome, Firefox, Opera etc.
+
 Yandex.Mail notifier
 ====================
 
-[![Build Status](https://travis-ci.org/ivantsov/yandex-mail-notifier.svg?branch=master)](https://travis-ci.org/ivantsov/yandex-mail-notifier)
-[![Coverage Status](https://coveralls.io/repos/ivantsov/yandex-mail-notifier/badge.svg?branch=master&service=github)](https://coveralls.io/github/ivantsov/yandex-mail-notifier?branch=master)
-[![Dependency Status](https://david-dm.org/ivantsov/yandex-mail-notifier.svg)](https://david-dm.org/ivantsov/yandex-mail-notifier/#info=dependencies) 
-[![devDependency Status](https://david-dm.org/ivantsov/yandex-mail-notifier/dev-status.svg)](https://david-dm.org/ivantsov/yandex-mail-notifier/#info=devDependencies)
-
 Tunable Firefox extension for Yandex.Mail with lots of features.
 
-![Panel screenshot](https://github.com/ivantsov/yandex-mail-notifier/raw/master/screenshots/panel-hover.png "Panel screenshot")
+![Panel screenshot](https://github.com/ivantsov/yandex-mail-notifier-firefox/raw/master/screenshots/panel-hover.png "Panel screenshot")
 
-##Features:
+## Features:
 
 * No need to enter your credentials
 * Handles emails from all folders
